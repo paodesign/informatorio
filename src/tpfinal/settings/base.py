@@ -52,7 +52,7 @@ ROOT_URLCONF = 'tpfinal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ 'tpfinal/template/'],
+        'DIRS': [ 'template/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
