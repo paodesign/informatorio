@@ -3,11 +3,11 @@ from django.shortcuts import render
 
 def principal(request):
 
-    return render(request, 'principal.html')
+    return render(request, 'index.html')
 
-def segunda(request):
+def about(request):
 
-    return render(request, 'segundo.html')
+    return render(request, 'about.html')
 
 def categoria(request):
 	return render(request, 'categoria.html')
