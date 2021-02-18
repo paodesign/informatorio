@@ -9,7 +9,7 @@ DATABASES = {
         'ENGINE': 'sql_server.pyodbc',
         'NAME':'BDTPFINAL',
         'Trusted_Connection':'yes',
-        'HOST': 'I7-HP',
+        'HOST': 'localhost\SQLEXPRESS',
         'OPTIONS':{
         	'driver':'SQL Server Native Client 11.0',
         }

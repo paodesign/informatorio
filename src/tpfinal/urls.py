@@ -21,5 +21,6 @@ urlpatterns = [
     path('', views.principal, name ='home'),
     path('segunda/', views.segunda, name ='segunda_pantalla'),
 
-    path('blog/', include('apps.blog.urls'))
+    path('blog/', include('apps.blog.urls')),
+    path('categoria/', views.categoria, name='categorias'),
 ]
