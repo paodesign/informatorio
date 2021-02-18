@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 def principal(request):
 
-    return render(request, 'prueba.html')
+    return render(request, 'principal.html')
 
 def segunda(request):
 
