@@ -112,7 +112,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    'tpfinal/static',
+    os.path.join(os.path.dirname(BASE_DIR),'static'),
 ]
 
 MEDIA_URL = '/media/'
