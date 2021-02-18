@@ -19,5 +19,6 @@ from tpfinal import views
 
 urlpatterns = [
     path('', views.principal, name ='home'),
-    path('segunda/', views.segunda, name ='segunda_pantalla')
+    path('segunda/', views.segunda, name ='segunda_pantalla'),
+    path('categoria/', views.categoria, name='categorias'),
 ]

@@ -1,0 +1,36 @@
+/* saco los puntos que viene por defecto en las listas*/
+ul{
+	list-style: none;
+}
+/*los pongo de forma horizontal*/
+#nav li{
+	color: black;
+	display: inline;
+	padding-left: 5px;
+	padding-right: 5px; 
+}
+/*doy estilos a los enlaces*/
+#nav li a{
+	color:black;
+	text-decoration: none;
+	padding: 1px 15px;
+	display: inline;
+}
+/*hago que se escondan las categorias*/
+#nav li ul{
+	display: none;
+	position: absolute;
+	min-width: 10px;
+}
+/*hago que se despliegue el menu al pasar el mouse*/
+#nav li:hover > ul{
+	display: block;
+	height: 10px
+}
+/*Configuro donde se despliega el menu*/
+#nav li ul li{
+	display: block;
+	position: relative;
+	min-width: 5px;
+	right:-126px;
+}

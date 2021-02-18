@@ -8,3 +8,6 @@ def principal(request):
 def segunda(request):
 
     return render(request, 'segundo.html')
+
+def categoria(request):
+	return render(request, 'categoria.html')
