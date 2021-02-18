@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
-<html>
-    <body>
-        {% block content %}
+
+    {% block content %}
+
+    <h3>Soy la SEGUNDA PAGINA</h3>
     
-        <a href="{% url 'home' %}"> Volver</a>
-    
-        { % endblock content %}
-        
-    </body>
-</html> 
+    <a href="{% url 'home' %}">Volver a Home</a>
+
+    {% endblock %}
