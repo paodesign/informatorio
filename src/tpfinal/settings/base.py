@@ -23,9 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'gl5d!nx!^31j1a7x&i^*aij)ediens@l)+kq6le#xp_&=-gmjp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -54,7 +52,7 @@ ROOT_URLCONF = 'tpfinal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['template/'],
+        'DIRS': [ 'tpfinal/template/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,4 +115,8 @@ STATICFILES_DIRS = (
     os.path.join(os.path.dirname(BASE_DIR), 'static'),
 )
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'media')
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'media'),
+
+# TEMPLATE_DIRS = (
+#     os.path.join(os.path.normpath(os.path.dirname(__file__)), 'templates'),
+# )
