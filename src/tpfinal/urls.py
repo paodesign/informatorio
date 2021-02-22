@@ -19,6 +19,7 @@ from tpfinal import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', include('apps.blog.urls')),
     path('about/', views.about, name ='about'),
     path('categoria/', views.categoria, name='categorias'),
