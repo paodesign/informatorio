@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 # Create your models here.
-class Post(models.Model):
+class post(models.Model):
     id=models.AutoField(primary_key=True)
     #id_user = models.ForeignKey('Usuario',on_delete=models.CASCADE)
     titulo = models.CharField(max_length=100)
