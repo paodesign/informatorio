@@ -19,11 +19,17 @@ from tpfinal import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('apps.blog.urls')),
+    # path('posts', include('apps.blog.urls')),
     path('admin/', admin.site.urls),
     path('about/', views.about, name ='about'),
     path('categoria/', views.categoria, name='categorias'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
+
+#Pesonalizacion de los titulos del administrador
+admin.site.site_header = 'Administración del Blog Django'
+admin.site.index_title = 'Blog Django'
+admin.site.site_title = 'Administración del Blog'
+
