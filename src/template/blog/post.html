@@ -14,7 +14,7 @@
           <h2 class="subheading">{{post.subtitulo}}</h2>
           <span class="meta">Posteado por
             <a href="#">{{post.autor}}</a>
-             {{post.fecha_publicacion}}</span>
+            {{post.fecha_publicacion}}</span>
         </div>
       </div>
     </div>
@@ -32,11 +32,41 @@
   </div>
 </article>
 
-{% if comentarios %}
-<hr>
-<h6>Comentarios </h6>
+
+<hr style="width: 60%">
+<div style="margin-left:15px; margin-bottom: 15px;">
+  <h6>Comentarios </h6>
+</div>
 <div class="jumbotron jumbotron-fluid">
   <div class="container-fluid">
+
+    <div class="accordion">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h2 class="mb-0">
+            <button id="" class="btn btn-block text-left" type="button" aria-expanded="true">
+              Deja un comentario
+            </button>
+          </h2>
+        </div>
+
+        <div class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+          <div class="card-body">
+            <form action="">
+              <div class="form-group">
+                <!-- <label for="exampleFormControlTextarea1">Example textarea</label> -->
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+              <button type="button " class="btn btn-outline-info ">Guardar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if comentarios %}
+    <br>
+    <br>
 
     <div class="accordion" id="accordionExample">
       {% for comentario in comentarios %}
@@ -50,7 +80,8 @@
           </h2>
         </div>
 
-        <div id="collapse{{comentario.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div id="collapse{{comentario.id}}" class="collapse" aria-labelledby="headingOne"
+          data-parent="#accordionExample">
           <div class="card-body">
             <p style="margin-top: 15px; margin-bottom: 15px; font-size:15px;">{{comentario.contenido}}</p>
             <br>
@@ -60,7 +91,9 @@
       </div>
       {% endfor %}
     </div>
+    {% endif %}
+
   </div>
 </div>
-{% endif %}
+
 {% endblock %}

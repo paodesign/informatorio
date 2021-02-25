@@ -4,14 +4,14 @@
 {% block content %}
 
 <!-- Page Header -->
-<header class="masthead" style="background-image: url( {% static 'img/home-bg.jpg' %} )">
+<header class="masthead" style="background-image: url(/static/img/home-bg.jpg)">
   <div class="overlay"></div>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="site-heading">
-          <h1>Clean Blog</h1>
-          <span class="subheading">A Blog Theme by Start Bootstrap</span>
+          <h1>Bienvenidos</h1>
+          <span class="subheading">Blog de Noticias y Actualidad</span>
         </div>
       </div>
     </div>
@@ -29,14 +29,14 @@
         <h2 class="post-title">
           {{post.titulo}}
         </h2>
-        <h5 class="post-subtitle">
+        <p class="post-subtitle text-truncate">
           {{post.contenido}}
-        </h5>
-        <a href="{% url 'posts' post.pk %}">Ver más</a>
+        </p>
+        <strong><a href="{% url 'posts' post.pk %}" style="font-size: 15px;">Ver más</a></strong>
         </a>
         <p class="post-meta">Postedado por
-          <a href="#">{{post.autor}}</a>
-           {{post.fecha_publicacion}}
+          <a href="#">Usuario{{post.id}}</a>
+          - {{post.fecha_publicacion}}
         </p>
 
         {% endfor %}

@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils import timezone
 
-# Creacion de modelos
 
+# Creacion de modelos
 class Post(models.Model):
     id=models.AutoField(primary_key=True)
     #id_user = models.ForeignKey('Usuario',on_delete=models.CASCADE)
