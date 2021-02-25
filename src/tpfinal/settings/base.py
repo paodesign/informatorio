@@ -24,7 +24,7 @@ SECRET_KEY = 'gl5d!nx!^31j1a7x&i^*aij)ediens@l)+kq6le#xp_&=-gmjp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-
+###AUTH_USER_HOTS = 'usuarios.Usuario'
 
 # Application definition
 

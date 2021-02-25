@@ -1,20 +1,20 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-# Create your views here.
 from django.shortcuts import render
-from .models import post
+from .models import Post, Comentario
+
+#Creacion de las vistas
 
 class Home(ListView):
-	model = post
+	model = Post
 	template_name = 'blog/home.html'
 
-#def home(request):
-   # return render(request, 'blog/home.html')
+#utilice una funcion para definir esta vista porque se necesita utilizar los dos modelos
 
-#def post(request):
-    #return render(request,'blog/post.html')
+def post(request, pk):
+	post = Post.objects.get(id=pk)
+	comentarios = Comentario.objects.filter(post= post.id)
+	ctx = {'post':post, 'comentarios': comentarios}
+	return render(request,'blog/post.html',ctx)
 
 
-class Detallepost(DetailView):
-	model = post
-	template_name = 'blog/post.html'

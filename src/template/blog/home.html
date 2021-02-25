@@ -4,41 +4,42 @@
 {% block content %}
 
 <!-- Page Header -->
-<header class="masthead" style="background-image: url( {% static 'img/home-bg.jpg' %} )">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="site-heading">
-                    <h1>Clean Blog</h1>
-                    <span class="subheading">A Blog Theme by Start Bootstrap</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-  <!-- Main Content -->
+<header class="masthead" style="background-image: url(/static/img/home-bg.jpg)">
+  <div class="overlay"></div>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Bienvenidos</h1>
+          <span class="subheading">Blog de Noticias y Actualidad</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
 
       {% for post in object_list %}
-        <div class="post-preview">
-          
-            <h2 class="post-title">
-              {{post.titulo}}
-            </h2>
-            <h5 class="post-subtitle">
-              {{post.contenido}}
-            </h5>
-          <a href="{% url 'post' post.pk %}">Ver más</a>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">{{post.autor}}</a>
-            on {{post.fecha_publicacion}}</p>
-      
-      {% endfor %}
-        
+      <div class="post-preview">
 
-{% endblock %}
+        <h2 class="post-title">
+          {{post.titulo}}
+        </h2>
+        <p class="post-subtitle text-truncate">
+          {{post.contenido}}
+        </p>
+        <strong><a href="{% url 'posts' post.pk %}" style="font-size: 15px;">Ver más</a></strong>
+        </a>
+        <p class="post-meta">Postedado por
+          <a href="#">Usuario{{post.id}}</a>
+          - {{post.fecha_publicacion}}
+        </p>
+
+        {% endfor %}
+
+
+        {% endblock %}
