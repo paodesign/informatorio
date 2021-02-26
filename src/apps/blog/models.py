@@ -10,6 +10,7 @@ class Post(models.Model):
     contenido = models.TextField()
     fecha_publicacion = models.DateTimeField()
     categoria = models.CharField(max_length=100)
+    imagen = models.ImageField(upload_to = 'post', blank = True)
         
     def publish(self):
         self.published_date = timezone.now()
@@ -31,3 +32,8 @@ class Comentario(models.Model):
 
     def __str__(self):
         return self.contenido
+
+# class Generador_post(models.Model):
+#     titulo = models.CharField(max_length = 100)
+#     contenido = models.TextField()
+#     fecha_creacion = models.DataTimeField()

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- Page Header -->
+<header class="masthead" style="background-image: url(/static/img/contact-bg.jpg)">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Bienvenidos</h1>
+                    <span class="subheading">Blog de Noticias y Actualidad</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+{% block main%}
+<br>
+<div class=" jumbotron jumbotron-fluid">
+<div class="container">
+{% crispy form%}
+<form method="POST" enctype="multipart/form-data" class="form-inline justify-content-center"> {% csrf_token %}
+    <!-- <div class="container" style="width: 750px">
+        <div class="row">
+            <div class="col-lg-12"> -->
+                <!-- {{form.as_p}} -->
+                <input type="submit" name="guardar" id="" value="Guardar" class="btn btn-outline-info">
+            <!-- </div>
+        </div>
+    </div> -->
+
+
+</form>
+</div>
+</div>
+{% endblock %}

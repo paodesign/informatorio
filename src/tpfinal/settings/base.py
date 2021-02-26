@@ -24,7 +24,7 @@ SECRET_KEY = 'gl5d!nx!^31j1a7x&i^*aij)ediens@l)+kq6le#xp_&=-gmjp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-###AUTH_USER_HOTS = 'usuarios.Usuario'
+AUTH_USER_MODEL= 'usuario.Usuario'
 
 # Application definition
 
@@ -36,7 +36,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.blog',
+    'apps.usuario',
+    'crispy_forms'
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+# CKEDITOR_UPLOAD_PATH = "uploads"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
