@@ -37,6 +37,8 @@
         <p class="post-meta">Postedado por
           <a href="#">Usuario{{post.id}}</a>
           - {{post.fecha_publicacion}}
+          <a href="{% url 'editar' post.id %}">editar</a>
+          <a href="{% url 'eliminar' post.id %}">eliminar</a>
         </p>
       </div>
       {% endfor %}

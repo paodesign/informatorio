@@ -9,8 +9,8 @@ class Post(models.Model):
     #id_user = models.ForeignKey('Usuario',on_delete=models.CASCADE)
     titulo = models.CharField(max_length=100)
     contenido = models.TextField()
-    fecha_publicacion = models.DateTimeField(blank = True)
-    hora = models.TimeField(blank = True)
+    fecha_publicacion = models.DateTimeField(blank = True,null=True)
+    hora = models.TimeField(blank = True,null=True)
     categoria = models.CharField(max_length=100)
     imagen = models.ImageField(upload_to = 'post', blank = True)
         

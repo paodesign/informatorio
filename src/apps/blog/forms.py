@@ -8,4 +8,3 @@ class Formulario_Alta_Post(forms.ModelForm):
         model = Post
         fields = '__all__'
 
-        
