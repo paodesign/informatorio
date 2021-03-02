@@ -38,8 +38,16 @@
           <a href="#">Usuario{{post.id}}</a>
           - {{post.fecha_publicacion}}
         </p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
 
-        {% endfor %}
 
+<br>
+<div class='container text-center ' >
+  <a class="btn btn-outline-info" href="{% url 'alta_post' %}" role="button">Crear Posts</a>
 
-        {% endblock %}
+</div>
+{% endblock %}
