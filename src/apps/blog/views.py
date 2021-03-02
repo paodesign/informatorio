@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
-from django.shortcuts import render
 from .models import Post, Comentario
 from .forms import Formulario_Alta_Post
+from django.http import HttpResponse
 
 
 #Creacion de las vistas
@@ -25,9 +25,26 @@ class Alta_post(CreateView):
 	model = 'Post'
 	form_class = Formulario_Alta_Post
 	template_name = 'blog/altaPost.html'
-	success_url = reverse_lazy('')
+	success_url = reverse_lazy('home')
 
-	# def post_nuevo(request):
- 	# 	form_class= Formulario_Alta_Post()
-    # 	return render(request, 'blog/altaPost.html', {'form': form})
+
+def post_nuevo(request):
+	if request.method == 'POST':
+		form = Formulario_Alta_Post(request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('home')
+	else:
+		
+		form = Formulario_Alta_Post()
+
+	ctx = {'form' : form}
+	return render(request, 'blog/altaPost.html', ctx)
+
+	# else:
+	# 	form = Formulario_Alta_Post(request.POST)
+	# 	ctx= {'form' : form}
+	# 	if form.is_valid():
+	# 		form.save()
+	# 		return redirect('home')
 

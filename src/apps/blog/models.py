@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from datetime import datetime
 
 
 # Creacion de modelos
@@ -8,7 +9,8 @@ class Post(models.Model):
     #id_user = models.ForeignKey('Usuario',on_delete=models.CASCADE)
     titulo = models.CharField(max_length=100)
     contenido = models.TextField()
-    fecha_publicacion = models.DateTimeField()
+    fecha_publicacion = models.DateTimeField(blank = True)
+    hora = models.TimeField(blank = True)
     categoria = models.CharField(max_length=100)
     imagen = models.ImageField(upload_to = 'post', blank = True)
         
