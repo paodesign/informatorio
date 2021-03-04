@@ -55,11 +55,11 @@ class Alta_post(CreateView):
 	template_name = 'blog/altaPost.html'
 	success_url = reverse_lazy('home')
 
-class Alta_comentario(CreateView):
-	model = Comentario 
-	form_class = Formulario_Alta_Comentario
-	template_name = 'blog/post.html'
-	success_url = reverse_lazy('home')
+#class Alta_comentario(CreateView):
+	#model = Comentario 
+	#form_class = Formulario_Alta_Comentario
+	#template_name = 'blog/post.html'
+	#success_url = reverse_lazy('home')
 
 
 
