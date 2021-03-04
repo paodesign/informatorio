@@ -24,9 +24,10 @@ class Post(models.Model):
 class Comentario(models.Model):
     id = models.AutoField(primary_key=True)
     #id_user = models.ForeignKey('Usuario',on_delete=CASCADE)
-    post = models.ForeignKey('Post',on_delete=models.CASCADE)
+    post = models.ForeignKey('Post', on_delete=models.CASCADE, )
     contenido = models.TextField()
-    fecha_creacion = models.DateTimeField()
+    #fecha_creacion = models.DateTimeField()
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
 
     def publish(self):
         self.published_date = timezone.now()

@@ -3,6 +3,7 @@ from django.views.generic import *
 from django.urls import reverse_lazy
 from .models import Post, Comentario
 from .forms import Formulario_Alta_Post
+from .forms import Formulario_Alta_Comentario
 from django.http import HttpResponse
 
 
@@ -18,8 +19,25 @@ class Home(ListView):
 def post(request, pk):
 	post = Post.objects.get(id=pk)
 	comentarios = Comentario.objects.filter(post= post.id)
-	ctx = {'post':post, 'comentarios': comentarios}
-	return render(request,'blog/post.html',ctx)
+	
+	#ESTA PARTE ES DEL FORMULARIO PARA EL COMENTARIO#
+	if request.method == 'POST':
+		form = Formulario_Alta_Comentario(request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('home')
+	else:
+		form = Formulario_Alta_Comentario()
+	#############################################################	
+	ctx = {'post':post, 'comentarios': comentarios, 'form' : form}
+	return render(request, 'blog/post.html', ctx)
+
+
+
+
+
+
+
 
 class Editar_post(UpdateView):
 	model = Post
@@ -37,7 +55,17 @@ class Alta_post(CreateView):
 	template_name = 'blog/altaPost.html'
 	success_url = reverse_lazy('home')
 
-# No hace falta, se esta usando la clase
+class Alta_comentario(CreateView):
+	model = Comentario 
+	form_class = Formulario_Alta_Comentario
+	template_name = 'blog/post.html'
+	success_url = reverse_lazy('home')
+
+
+
+
+
+# No hace falta, se esta usando la clase "Alta_post"
 #def post_nuevo(request):
 #	if request.method == 'POST':
 #		form = Formulario_Alta_Post(request.POST)

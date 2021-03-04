@@ -8,3 +8,7 @@ class Formulario_Alta_Post(forms.ModelForm):
         model = Post
         fields = '__all__'
 
+class Formulario_Alta_Comentario(forms.ModelForm):
+	class Meta:
+		model = Comentario
+		fields = '__all__'

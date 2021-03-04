@@ -7,7 +7,7 @@ from . views import *
 urlpatterns = [
   path('', Home.as_view(), name = 'home'),
   #path('home/', Home.as_view(), name = 'home'),
-  path('posts/<int:pk>', post , name = 'posts'),
+  path('posts/<int:pk>', views.post , name = 'posts'),
   path('crear/', views.Alta_post.as_view(), name = 'alta_post'),
   #path('nuevo/', post_nuevo, name = 'nuevo'),
   path('editar/<int:pk>/',views.Editar_post.as_view(), name= 'editar'),
