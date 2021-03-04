@@ -24,8 +24,12 @@ def post(request, pk):
 	if request.method == 'POST':
 		form = Formulario_Alta_Comentario(request.POST)
 		if form.is_valid():
-			form.save()
-			return redirect('home')
+			comentario = form.save(commit=False)
+			comentario.post = post
+			comentario.save()
+
+
+			#return redirect('home') ### Te devuelve a la home despues de comentar, me parece que no sirve por eso lo anulo
 	else:
 		form = Formulario_Alta_Comentario()
 	#############################################################	

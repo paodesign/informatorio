@@ -11,4 +11,5 @@ class Formulario_Alta_Post(forms.ModelForm):
 class Formulario_Alta_Comentario(forms.ModelForm):
 	class Meta:
 		model = Comentario
-		fields = '__all__'
+		fields = ['contenido']
+		
