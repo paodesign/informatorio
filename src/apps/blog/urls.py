@@ -11,5 +11,6 @@ urlpatterns = [
   path('crear/', views.Alta_post.as_view(), name = 'alta_post'),
   #path('nuevo/', post_nuevo, name = 'nuevo'),
   path('editar/<int:pk>/',views.Editar_post.as_view(), name= 'editar'),
-  path('eliminar/<int:pk>/',views.Eliminar_post.as_view(), name= 'eliminar'),
+  path('eliminar/<int:pk>/',eliminar_post, name= 'eliminar'),
+ 
 ]
