@@ -1,10 +1,16 @@
 from django.shortcuts import render, redirect
 from django.views.generic import *
-from django.urls import reverse_lazy, reverse
+
+from django.urls import reverse_lazy
 from .models import Post, Comentario
+
+from django.urls import reverse_lazy, reverse
+from .models import Post, Comentario, Categoria
+
 from .forms import Formulario_Alta_Post
-from django.http import HttpResponse, HttpResponseRedirect
 from .forms import Formulario_Alta_Comentario
+from django.http import HttpResponse
+
 
 #Creacion de las vistas
 
@@ -19,7 +25,7 @@ def post(request, pk):
 	post = Post.objects.get(id=pk)
 	comentarios = Comentario.objects.filter(post= post.id)
 	
-	#ESTA PARTE ES DEL FORMULARIO PARA EL COMENTARIO#
+	###ESTA PARTE ES DEL FORMULARIO PARA EL COMENTARIO####
 	if request.method == 'POST':
 		form = Formulario_Alta_Comentario(request.POST)
 		if form.is_valid():
@@ -28,10 +34,11 @@ def post(request, pk):
 			comentario.save()
 
 
-			#return redirect('home') ### Te devuelve a la home despues de comentar, me parece que no sirve por eso lo anulo
+			#return redirect('home') ### Te devuelve a la home despues de comentar, me parece que no sirve 
+			#por eso lo anulo
 	else:
 		form = Formulario_Alta_Comentario()
-	#############################################################	
+	###########  ACA TERMINA LO DEL FORMULARIO PARA EL COMENTARIO     ##########	
 	ctx = {'post':post, 'comentarios': comentarios, 'form' : form}
 	return render(request, 'blog/post.html', ctx)
 
@@ -48,17 +55,9 @@ class Editar_post(UpdateView):
 	template_name='blog/altaPost.html'
 	success_url=reverse_lazy('home')
 
-
-# class Eliminar_post(DeleteView):
-# 	model=Post
-# 	form_class = Formulario_Alta_Post
-# 	template_name='blog/bajaPost.html'
-# 	success_url=reverse_lazy('home')
-
-def eliminar_post(request, pk):
-	post = Post.objects.get(id=pk)
-	post.delete()
-	return HttpResponseRedirect('/')
+class Eliminar_post(DeleteView):
+	model=Post
+	success_url=reverse_lazy('home')
 	
 class Alta_post(CreateView):
 	model = Post 
@@ -66,11 +65,10 @@ class Alta_post(CreateView):
 	template_name = 'blog/altaPost.html'
 	success_url = reverse_lazy('home')
 
-#class Alta_comentario(CreateView):
-	#model = Comentario 
-	#form_class = Formulario_Alta_Comentario
-	#template_name = 'blog/post.html'
-	#success_url = reverse_lazy('home')
+def vista_categorias(request, categ):
+	categoria_posts = Post.objects.filter(categoria=categ)
+	existe = Categoria.objects.filter(categoria_nombre=categ)
+	return render(request, 'blog/categorias.html', {'categ':categ.title(), 'categoria_posts':categoria_posts, 'existe':existe})
 
 
 
