@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import *
 from django.urls import reverse_lazy, reverse
-from .models import Post, Comentario
+from .models import *
 from .forms import Formulario_Alta_Post
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import Formulario_Alta_Comentario
@@ -65,6 +65,12 @@ class Alta_post(CreateView):
 	form_class = Formulario_Alta_Post
 	template_name = 'blog/altaPost.html'
 	success_url = reverse_lazy('home')
+
+
+def vista_categorias(request, categ):
+	categoria_posts = Post.objects.filter(categoria=categ)
+	existe = Categoria.objects.filter(categoria_nombre=categ)
+	return render(request, 'blog/categorias.html', {'categ':categ.title(), 'categoria_posts':categoria_posts, 'existe':existe})
 
 #class Alta_comentario(CreateView):
 	#model = Comentario 
