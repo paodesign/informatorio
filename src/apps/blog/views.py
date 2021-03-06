@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import *
 from django.urls import reverse_lazy, reverse
-from .models import Post, Comentario
+from .models import *
 from .forms import Formulario_Alta_Post, Formulario_Alta_Comentario
 from django.http import HttpResponse, HttpResponseRedirect
 from ..usuario.models import Usuario
