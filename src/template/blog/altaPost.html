@@ -4,6 +4,8 @@
 {% load static %}
 
 {% block content %}
+
+
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{% static 'js/confirmacion.js'%}"></script>
 
@@ -40,6 +42,21 @@
 
 
        </form>
+
+       <script type="text/javascript">
+           
+        var name = "{{user.id}}"
+        document.getElementById("identificador").value
+            = name;
+
+
+       </script>
+
+
+
     </div>
 </div>
+
+
+
 {% endblock %}

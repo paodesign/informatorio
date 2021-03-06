@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from ..blog.models import Post
+#from ..blog.models import Post
 
 # Create your models here.
 
