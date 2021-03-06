@@ -41,7 +41,7 @@
         <div class="row post-meta">
           <div class="col-md-8">
             <p>Postedado por
-              <a href="#" on>{{user.username}}</a>
+              <a href="#" on>{{post.id_user}}</a>
               - {{post.fecha_publicacion}}
 
             </p>
@@ -51,7 +51,7 @@
           falta implementar la clave foranea del post para "conectarlo" al usuario que lo creo, sin esto, nadie puede editar ni eliminar sus propios posts.
           Supongo que pasara lo mismo con comentarios, si es que se pueden editar o eliminar-->
           {% if user.is_authenticated %}
-            {% if user.id == post.id_usuario_creador %}
+            {% if user.id == post.id_user_id %}
 
             <div class="col-md-4">
               <p class="float-right">
