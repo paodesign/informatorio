@@ -71,11 +71,26 @@ class Alta_post(LoginRequiredMixin ,CreateView):
 	template_name = 'blog/altaPost.html'
 	success_url = reverse_lazy('home')
 
+
+
+
+
+def vista_categorias(request, categ):
+	categoria_posts = Post.objects.filter(categoria=categ)
+	existe = Categoria.objects.filter(categoria_nombre=categ)
+	return render(request, 'blog/categorias.html', {'categ':categ.title(), 'categoria_posts':categoria_posts, 'existe':existe})
+
+
+
+
 #class Alta_comentario(CreateView):
 	#model = Comentario 
 	#form_class = Formulario_Alta_Comentario
 	#template_name = 'blog/post.html'
 	#success_url = reverse_lazy('home')
+
+
+
 
 
 

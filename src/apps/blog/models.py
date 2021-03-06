@@ -19,7 +19,7 @@ class Post(models.Model):
     contenido = models.TextField()
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
     #hora = models.TimeField(blank = True,null=True)
-    categoria = models.CharField(max_length=100)
+    categoria = models.ForeignKey('Categoria', to_field='categoria_nombre', on_delete = models.SET_NULL, null=True)
     imagen = models.ImageField(upload_to = 'post', blank = True)
         
     def publish(self):
@@ -44,6 +44,14 @@ class Comentario(models.Model):
 
     def __str__(self):
         return self.contenido
+
+
+class Categoria(models.Model):
+    id = models.AutoField(primary_key=True)
+    categoria_nombre = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.categoria_nombre
 
 # class Generador_post(models.Model):
 #     titulo = models.CharField(max_length = 100)
