@@ -2,15 +2,19 @@
 {% load static %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<header class="masthead" style="background-image: url(/static/img/home-bg.jpg)">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Bienvenidos</h1>
+                    <span class="subheading">Blog de Noticias y Actualidad </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
     
     <p>REGISTRAR USUARIO</p>
     <div>
@@ -22,6 +26,4 @@
 
     <a href="{% url 'login' %}">¿Ya posee una cuenta? Ingresar</a>
 
-</body>
-</html>
-{% block end%}
+{% endblock %}
