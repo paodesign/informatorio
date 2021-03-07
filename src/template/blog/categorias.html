@@ -18,8 +18,10 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="site-heading">
+
           <h1>{{categ}}</h1>
           <span class="subheading">Blog de Noticias y Actualidad sobre {{categ}} </span>
+
         </div>
       </div>
     </div>
@@ -46,24 +48,40 @@
         <div class="row post-meta">
           <div class="col-md-8">
             <p>Postedado por
-              <a href="#" on>Usuario{{post.id}}</a>
+
+
+              <a href="#" on>{{post.id_user}}</a>
+
               - {{post.fecha_publicacion}}
 
             </p>
           </div>
-          <div class="col-md-4">
-            <p class="float-right">
-              <a href="{% url 'editar' post.id %}"
-                style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
-                role="button" class="btn btn-outline-info" type="image/x-icon"> <img src="{% static 'img/pencil.svg' %}"
-                  style="width:17px;height:17px" alt='' /></a>
 
-              <a href="#" onclick="confirmarEliminacion({{post.id}})"
-                style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
-                role="button" class="btn btn-outline-danger" type="image/x-icon"> <img
-                  src="{% static 'img/trash.svg' %}" style="width:17px;height:17px" alt='' /></a>
-            </p>
-          </div>
+
+          <!--Solo los usuarios registrados pueden ver el boton de borrar y editar
+          falta implementar la clave foranea del post para "conectarlo" al usuario que lo creo, sin esto, nadie puede editar ni eliminar sus propios posts.
+          Supongo que pasara lo mismo con comentarios, si es que se pueden editar o eliminar-->
+          {% if user.is_authenticated %}
+            
+            {% if user.id == post.id_user_id %}
+
+            <div class="col-md-4">
+              <p class="float-right">
+                <a href="{% url 'editar' post.id %}"
+                  style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+                 role="button" class="btn btn-outline-info" type="image/x-icon"> <img src="{% static 'img/pencil.svg' %}"
+                   style="width:17px;height:17px" alt='' /></a>
+
+                <a href="#" onclick="confirmarEliminacion({{post.id}})"
+                  style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+                  role="button" class="btn btn-outline-danger" type="image/x-icon"> <img
+                    src="{% static 'img/trash.svg' %}" style="width:17px;height:17px" alt='' /></a>
+             </p>
+            </div>
+
+            {% endif %}
+          {% endif %}
+
 
         </div>
         <hr>
@@ -73,6 +91,14 @@
     </div>
   </div>
 </div>
+
+
+<br>
+<div class='container text-center '>
+  <a class="btn btn-outline-info" href="{% url 'alta_post' %}" role="button">Crear Posts</a>
+
+</div>
+
 
 
 
