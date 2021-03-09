@@ -5,7 +5,7 @@
 <!-- <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css"> -->
 
 <!-- Page Header -->
-<header class="masthead" style="background-image: url(/static/img/home-bg.jpg)">
+<header class="masthead" style="background-image: url(/static/img/post-bg.jpg); height: 1150px;">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -18,13 +18,13 @@
         </div>
     </div>
 
-</header>
+
     <div class="container">
         <main class="login-form">
             <div class="cotainer">
                 <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="card">
+                    <div class="col-md-8 ">
+                        <div class="card" style="background-color:#ffffffe5;">
                             <div class="card-header">Iniciar sesión</div>
                             <div class="card-body">
                                 <form action="" method="POST">{%csrf_token%}
@@ -57,16 +57,16 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6 offset-md-4">
+                                    <div class=" container text-center ">
                                         <button type="submit" class="btn btn-outline-info">
                                             Ingresar
                                         </button>
-                                        <span>
-                                            <a href="{% url 'crear_usuario' %}" class="btn btn-link">
-                                                Registrese!
-                                            </a>
+                                    </div>
+                                    <div class="container text-center">
+                                        <a href="{% url 'crear_usuario' %}" class="btn btn-link">
+                                            Registrese!
+                                        </a>
 
-                                        </span>
                                     </div>
                             </div>
                             </form>
@@ -75,24 +75,8 @@
                 </div>
             </div>
     </div>
-
-
-
-
-
-
-
-
-
-<!-- <form method="POST">{%csrf_token%}
-        {{form.errors}}
-        <input type="text" name="username" placeholder="USUARIO">
-        <input type="password" name="password" placeholder="CONTRASEÑA">
-        <input type="submit" name="" value="INGRESAR">
-    </form>
-
-    <a href="{% url 'crear_usuario' %}">¿No posee una cuenta? Registrese!</a>
-</div> -->
+</header>
+<hr style="border-top: 0px;">
 
 
 {% endblock %}

@@ -8,7 +8,7 @@
 
 <!-- Page Header -->
 <header class="masthead" style="background-image: url(/static/img/home-bg.jpg)">
-  <div class="overlay"></div>
+  <div class="overlay"> </div>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
@@ -19,69 +19,94 @@
       </div>
     </div>
   </div>
+
 </header>
 
 <!-- Main Content -->
-<div class="container card">
+<!-- <div style="position: relative;"> -->
+<div class="container" style="position: relative;;">
   <div class="row card-body">
-    <div class="col-lg-8 col-md-10 mx-auto">
+    <div class=" card col-lg-8" style="margin-left: 15px;
+  margin-right: 10px;">
+      <div class="col-lg-8 col-md-10 mx-auto" style="margin-left: 15px;
+        margin-right: 10px;padding-top: 15px">
 
-      {% for post in object_list %}
-      <div class="post-preview ">
+        {% for post in object_list %}
+        <div class="post-preview ">
 
-        <h2 class="post-title">
-          <a href="{% url 'posts' post.pk %}">{{post.titulo}}</a>
+          <h2 class="post-title">
+            <a href="{% url 'posts' post.pk %}">{{post.titulo}}</a>
 
-        </h2>
-        <p class="post-subtitle text-truncate" style="margin-bottom: 0px;">
-          {{post.contenido}}
-        </p>
-        <strong><a href="{% url 'posts' post.pk %}" style="font-size: 15px; ">Ver más</a></strong>
-        </a>
-        <div class="row post-meta">
-          <div class="col-md-8">
-            <p>Postedado por
-              <a href="#" on>{{post.id_user}}</a>
-              - {{post.fecha_publicacion}}
+          </h2>
+          <p class="post-subtitle text-truncate" style="margin-bottom: 0px;">
+            {{post.contenido}}
+          </p>
+          <strong><a href="{% url 'posts' post.pk %}" style="font-size: 15px; ">Ver más</a></strong>
+          </a>
+          <div class="row post-meta">
+            <div class="col-md-8">
+              <p>Postedado por
+                <a href="#" on>{{post.id_user}}</a>
+                - {{post.fecha_publicacion}}
 
-            </p>
-          </div>
+              </p>
+            </div>
 
-          <!--Solo los usuarios registrados pueden ver el boton de borrar y editar
-          falta implementar la clave foranea del post para "conectarlo" al usuario que lo creo, sin esto, nadie puede editar ni eliminar sus propios posts.
-          Supongo que pasara lo mismo con comentarios, si es que se pueden editar o eliminar-->
-          {% if user.is_authenticated %}
-            
+
+            <!--Solo los usuarios registrados pueden ver el boton de borrar y editar
+            falta implementar la clave foranea del post para "conectarlo" al usuario que lo creo, sin esto, nadie puede editar ni eliminar sus propios posts.
+            Supongo que pasara lo mismo con comentarios, si es que se pueden editar o eliminar-->
+            {% if user.is_authenticated %}
+
             {% if user.id == post.id_user_id %}
 
             <div class="col-md-4">
               <p class="float-right">
                 <a href="{% url 'editar' post.id %}"
                   style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
-                 role="button" class="btn btn-outline-info" type="image/x-icon"> <img src="{% static 'img/pencil.svg' %}"
-                   style="width:17px;height:17px" alt='' /></a>
+                  role="button" class="btn btn-outline-info" type="image/x-icon"> <img
+                    src="{% static 'img/pencil.svg' %}" style="width:17px;height:17px" alt='' /></a>
 
                 <a href="#" onclick="confirmarEliminacion({{post.id}})"
                   style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
                   role="button" class="btn btn-outline-danger" type="image/x-icon"> <img
                     src="{% static 'img/trash.svg' %}" style="width:17px;height:17px" alt='' /></a>
-             </p>
+              </p>
             </div>
 
             {% endif %}
-          {% endif %}
+            {% endif %}
+
+          </div>
+          <hr>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4 col-lg-10" style="position: absolute; top: 0px;
+            left: 140%;">
+                <strong><p style="margin-bottom: 5px">Categorias</p></strong>
+                {% for categ in categoria %}
+                <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" style="padding-left: 5px"
+                      href="{% url 'categorias' categ.categoria_nombre %}">{{categ.categoria_nombre}}</a>
+                  </li>
+                  {% endfor %}
+              </div>
+
+            </div>
+          </div>
 
         </div>
-        <hr>
-
+        {% endfor %}
       </div>
-      {% endfor %}
+
     </div>
+
+    <br>
+    </ul>
   </div>
 </div>
-
-
-<br>
+</div>
 <!-- <div class='container text-center '>
   <a class="btn btn-outline-info" href="{% url 'alta_post' %}" role="button">Crear Posts</a>
 

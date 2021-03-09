@@ -52,6 +52,7 @@ class Categoria(models.Model):
 
     def __str__(self):
         return self.categoria_nombre
+    
 
 # class Generador_post(models.Model):
 #     titulo = models.CharField(max_length = 100)

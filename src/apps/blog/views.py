@@ -14,8 +14,16 @@ from django.contrib.auth.decorators import login_required
 class Home(ListView):
 	model = Post
 	template_name = 'blog/home.html'
+	def  get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		categoria = Categoria.objects.all()
+		context['categoria'] = categoria
+		return context
 
-
+def vista_categorias(request, categ):
+	existe = Categoria.objects.filter(categoria_nombre=categ)
+	return render(request, 'blog/categorias.html', {'existe':existe})
+	
 #utilice una funcion para definir esta vista porque se necesita utilizar los dos modelos
 
 
@@ -38,11 +46,6 @@ def post(request, pk):
 	#############################################################	
 	ctx = {'post':post, 'comentarios': comentarios, 'form' : form}
 	return render(request, 'blog/post.html', ctx)
-
-
-
-
-
 
 
 

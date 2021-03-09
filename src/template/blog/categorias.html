@@ -3,9 +3,6 @@
 
 {% block content %}
 
-{% if existe %}
-
-
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{% static 'js/confirmacion.js'%}"></script>
@@ -27,10 +24,11 @@
 </header>
 
 <!-- Main Content -->
-<div class="container card">
-  <div class="row card-body">
-    <div class="col-lg-8 col-md-10 mx-auto">
 
+<div class="container card">
+  <div class="row mb-2 card-body">
+    <div class="col-lg-8 col-md-10 mx-auto">
+ 
       {% for post in categoria_posts %}
       <div class="post-preview ">
 
@@ -67,24 +65,14 @@
 
         </div>
         <hr>
-
       </div>
       {% endfor %}
+      {% if not existe %}
+        <p>
+            <h5>Lo sentimos, por el momento no hay post en esta categoria...</h5>
+        </p>
+        {% endif %}
     </div>
   </div>
 </div>
-
-
-
-
-{% else %}
-
-
-
-
-
-<p>
-<h2>Lo sentimos, no podemos mostrarte esa pagina... :(</h2>
-</p>
-{% endif %}
 {% endblock %}
