@@ -65,9 +65,24 @@
             <!-- </div>
         </div>
     </div> -->
-        {% endif %}
+        
 
        </form>
+
+        <script type="text/javascript">
+           
+        var name = "{{user.id}}"
+        document.getElementById("identificador").value
+            = name;
+
+
+       </script>
+
+{% endif %}
+
+
+
+
           </div>
         </div>
       </div>
@@ -84,7 +99,7 @@
           <h2 class="mb-0">
             <button id="" class="btn btn-block text-left " type="button" data-toggle="collapse"
               data-target="#collapse{{comentario.id}}" aria-expanded="true" aria-controls="collapse{{comentario.id}}">
-              Usuario{{comentario.id}}
+              {{comentario.autor}}
             </button>
           </h2>
         </div>
