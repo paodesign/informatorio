@@ -21,9 +21,7 @@ class Post(models.Model):
     #hora = models.TimeField(blank = True,null=True)
     categoria = models.ForeignKey('Categoria', to_field='categoria_nombre', on_delete = models.SET_NULL, null=True)
     imagen = models.ImageField(upload_to = 'post', blank = True)
-
-
-        
+    
     def publish(self):
         self.published_date = timezone.now()
         self.save()
@@ -34,7 +32,6 @@ class Post(models.Model):
 class Comentario(models.Model):
     id = models.AutoField(primary_key=True)
     autor = models.ForeignKey('usuario.Usuario',on_delete=models.CASCADE)
-    
     post = models.ForeignKey('Post', on_delete=models.CASCADE, )
     contenido = models.TextField()
     #fecha_creacion = models.DateTimeField()

@@ -29,3 +29,23 @@ function confirmacionEditar(id) {
     
 }
 
+function eliminarComentario(idCom, idPost){
+    swal({
+        title: "¿Está seguro de Eliminar el comentario?",
+        text: "No podras deshacer esta acción.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                //   swal("Tu post se ha eliminado!", {
+                //     icon: "success",
+                //   });
+                window.location.href = "/eliminarcoment/" + idCom + "/" + idPost + "/";
+            } else {
+                //   swal("Tu post esta a salvo.");
+            }
+        });
+    
+}

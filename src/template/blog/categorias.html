@@ -2,12 +2,8 @@
 {% load static %}
 
 {% block content %}
-
-
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{% static 'js/confirmacion.js'%}"></script>
-
-
 <!-- Page Header -->
 <header class="masthead" style="background-image: url(/static/img/home-bg.jpg)">
   <div class="overlay"></div>
@@ -23,12 +19,14 @@
   </div>
 </header>
 
-<!-- Main Content -->
 
+
+<!-- Main Content -->
+{% if categoria_posts|length > 0 %}
 <div class="container card">
-  <div class="row mb-2 card-body">
+  <div class="row card-body">
     <div class="col-lg-8 col-md-10 mx-auto">
- 
+
       {% for post in categoria_posts %}
       <div class="post-preview ">
 
@@ -44,98 +42,52 @@
         <div class="row post-meta">
           <div class="col-md-8">
             <p>Postedado por
-
-
-              <a href="#" on>{{post.id_user}}</a>
-
+              <a href="#" on>Usuario{{post.id}}</a>
               - {{post.fecha_publicacion}}
 
             </p>
           </div>
+          <div class="col-md-4">
+            <p class="float-right">
+              <a href="{% url 'editar' post.id %}"
+                style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+                role="button" class="btn btn-outline-info" type="image/x-icon"> <img src="{% static 'img/pencil.svg' %}"
+                  style="width:17px;height:17px" alt='' /></a>
 
-
-          <!--Solo los usuarios registrados pueden ver el boton de borrar y editar
-          falta implementar la clave foranea del post para "conectarlo" al usuario que lo creo, sin esto, nadie puede editar ni eliminar sus propios posts.
-          Supongo que pasara lo mismo con comentarios, si es que se pueden editar o eliminar-->
-          {% if user.is_authenticated %}
-            
-            {% if user.id == post.id_user_id %}
-
-            <div class="col-md-4">
-              <p class="float-right">
-                <a href="{% url 'editar' post.id %}"
-                  style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
-                 role="button" class="btn btn-outline-info" type="image/x-icon"> <img src="{% static 'img/pencil.svg' %}"
-                   style="width:17px;height:17px" alt='' /></a>
-
-                <a href="#" onclick="confirmarEliminacion({{post.id}})"
-                  style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
-                  role="button" class="btn btn-outline-danger" type="image/x-icon"> <img
-                    src="{% static 'img/trash.svg' %}" style="width:17px;height:17px" alt='' /></a>
-             </p>
-            </div>
-
-            {% endif %}
-          {% endif %}
-
+              <a href="#" onclick="confirmarEliminacion({{post.id}})"
+                style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+                role="button" class="btn btn-outline-danger" type="image/x-icon"> <img
+                  src="{% static 'img/trash.svg' %}" style="width:17px;height:17px" alt='' /></a>
+            </p>
+          </div>
 
         </div>
+        {% if not forloop.last %}
         <hr>
+        {% endif %}
+
       </div>
       {% endfor %}
-      {% if not existe %}
-        <p>
-            <h5>Lo sentimos, por el momento no hay post en esta categoria...</h5>
-        </p>
-        {% endif %}
     </div>
   </div>
 </div>
-<<<<<<< .mine
-{% endblock %}
+{% endif %}
 
+{% if categoria_posts|length is 0 %}
 
+<div class="container card" style="text-align: center">
+  <div class="row">
+    <div class="col-md-10">
+      <p>
+      <h4>Lo sentimos, esta categoria aun no contiene post ...</h4>
+      </p>
 
+    </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
-
-
-<br>
-<div class='container text-center '>
-  <a class="btn btn-outline-info" href="{% url 'alta_post' %}" role="button">Crear Posts</a>
+  </div>
 
 </div>
 
-
-
-
-
-{% else %}
-
-
-
-
-
-<p>
-<h2>Lo sentimos, no podemos mostrarte esa pagina... :(</h2>
-</p>
 {% endif %}
+
 {% endblock %}
