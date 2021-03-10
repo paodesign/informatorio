@@ -100,37 +100,7 @@
             {{comentario.autor}}
           </button>
         </h2>
-      </div>
-
-      <<<<<<< HEAD <div id="collapse{{comentario.id}}" class="collapse" aria-labelledby="headingOne"
-        data-parent="#accordionExample">
-        <div class="card-body">
-          <p style="margin-top: 15px; margin-bottom: 15px; font-size:15px;">{{comentario.contenido}}</p>
-          <br>
-          <p style="margin-top: 15px; margin-bottom: 15px; font-size:15px;">Publicado: {{comentario.fecha_creacion}}</p>
-
-          <!--Aca van los botones de borrar y editar, aunque no estoy seguro de como funcionan, al inicio añadi unos scripts que estaban en home, pero igual no funciona bien,
-            no se como funciona esto-->
-          {% if user.is_authenticated %}
-          {% if user.id == comentario.autor_id %}
-          <div>
-            <p class="float-right">
-              <a href="{% url 'editar' post.id %}"
-                style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
-                role="button" class="btn btn-outline-info" type="image/x-icon"> <img src="{% static 'img/pencil.svg' %}"
-                  style="width:17px;height:17px" alt='' /></a>
-
-              <a href="#" onclick="confirmarEliminacion({{comentario.id}})"
-                style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
-                role="button" class="btn btn-outline-danger" type="image/x-icon"> <img
-                  src="{% static 'img/trash.svg' %}" style="width:17px;height:17px" alt='' /></a>
-            </p>
-          </div>
-          {% endif %}
-          {% endif %}
-          <!------------------------------------------------------------------------------------>
-
-          =======
+      </div>         
           <div id="collapse{{comentario.id}}" class="collapse" aria-labelledby="headingOne"
             data-parent="#accordionExample">
             <div class="card-body">
@@ -138,11 +108,11 @@
                 {{comentario.contenido}}
               </p>
               <br>
-              {{comentario.fecha_publicacion}}
+              <p style="margin-top: 15px; margin-bottom: 15px; font-size:15px;">Publicado: {{comentario.fecha_creacion}}</p>
 
               {% if user.is_authenticated %}
 
-              {% if user.id == post.id_user_id %}
+              {% if user.id == comentario.autor_id %}
               <div class="container" style="padding-left: 700px;
           margin-right: 10px;">
                 <div class="row">
@@ -160,7 +130,7 @@
                     </p>
                   </div>
                 </div>
-                >>>>>>> version_categorias
+                
               </div>
             </div>
             {% endif %}
