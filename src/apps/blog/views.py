@@ -127,6 +127,7 @@ class Editar_comentario(LoginRequiredMixin,UpdateView):
 	success_url=reverse_lazy('home')
 
 
+
 def eliminar_comentario(request, coment_id, post_id):
 	comentario = Comentario.objects.get(id=coment_id)
 	comentario.delete()
