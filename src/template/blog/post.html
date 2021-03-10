@@ -8,6 +8,7 @@
 <script src="{% static 'js/confirmacion.js'%}"></script>
 
 <!-- Page Header -->
+
 <header class="masthead" style="background-image: url('{{ STATIC_URL }}img/post-bg.jpg')">
   <div class="overlay"></div>
   <div class="container">
@@ -57,8 +58,8 @@
 
         {% if user.is_authenticated %}
         <!--div class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"-->
-          <div class="card-body">
-            <form method="POST"> 
+        <div class="card-body">
+          <form method="POST">
             {% csrf_token %}
             <!-- <div class="container" style="width: 750px">
         <div class="row">
@@ -68,77 +69,106 @@
             <!-- </div>
         </div>
     </div> -->
-        
+          </form>
 
-       </form>
+          <script type="text/javascript">
 
-        <script type="text/javascript">
-           
-        var name = "{{user.id}}"
-        document.getElementById("identificador").value
-            = name;
+            var name = "{{user.id}}"
+            document.getElementById("identificador").value
+              = name;
 
+          </script>
 
-       </script>
-
-        {% endif %}
-
-
-
-
-          </div>
+          {% endif %}
+          
         </div>
       </div>
     </div>
+  </div>
 
-    {% if comentarios %}
-    <br>
-    <br>
+  {% if comentarios %}
+  <br>
+  <br>
 
-    <div class="accordion" id="accordionExample">
-      {% for comentario in comentarios %}
-      <div class="card">
-        <div class="card-header" id="headingOne">
-          <h2 class="mb-0">
-            <button id="" class="btn btn-block text-left " type="button" data-toggle="collapse"
-              data-target="#collapse{{comentario.id}}" aria-expanded="true" aria-controls="collapse{{comentario.id}}">
-              {{comentario.autor}}
-            </button>
-          </h2>
-        </div>
+  <div class="accordion" id="accordionExample">
+    {% for comentario in comentarios %}
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <button id="" class="btn btn-block text-left " type="button" data-toggle="collapse"
+            data-target="#collapse{{comentario.id}}" aria-expanded="true" aria-controls="collapse{{comentario.id}}">
+            {{comentario.autor}}
+          </button>
+        </h2>
+      </div>
 
-        <div id="collapse{{comentario.id}}" class="collapse" aria-labelledby="headingOne"
-          data-parent="#accordionExample">
-          <div class="card-body">
-            <p style="margin-top: 15px; margin-bottom: 15px; font-size:15px;">{{comentario.contenido}}</p>
-            <br>
-            <p style="margin-top: 15px; margin-bottom: 15px; font-size:15px;">Publicado: {{comentario.fecha_creacion}}</p>
+      <<<<<<< HEAD <div id="collapse{{comentario.id}}" class="collapse" aria-labelledby="headingOne"
+        data-parent="#accordionExample">
+        <div class="card-body">
+          <p style="margin-top: 15px; margin-bottom: 15px; font-size:15px;">{{comentario.contenido}}</p>
+          <br>
+          <p style="margin-top: 15px; margin-bottom: 15px; font-size:15px;">Publicado: {{comentario.fecha_creacion}}</p>
 
-            <!--Aca van los botones de borrar y editar, aunque no estoy seguro de como funcionan, al inicio añadi unos scripts que estaban en home, pero igual no funciona bien,
+          <!--Aca van los botones de borrar y editar, aunque no estoy seguro de como funcionan, al inicio añadi unos scripts que estaban en home, pero igual no funciona bien,
             no se como funciona esto-->
-            {% if user.is_authenticated %}
-              {% if user.id == comentario.autor_id %}
-                <div>
-                  <p class="float-right">
-                    <a href="{% url 'editar' post.id %}"
-                     style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
-                     role="button" class="btn btn-outline-info" type="image/x-icon"> <img src="{% static 'img/pencil.svg' %}"
-                      style="width:17px;height:17px" alt='' /></a>
-  
-                   <a href="#" onclick="confirmarEliminacion({{comentario.id}})"
-                     style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
-                      role="button" class="btn btn-outline-danger" type="image/x-icon"> <img
-                       src="{% static 'img/trash.svg' %}" style="width:17px;height:17px" alt='' /></a>
-                 </p>
-               </div>
-              {% endif %}
+          {% if user.is_authenticated %}
+          {% if user.id == comentario.autor_id %}
+          <div>
+            <p class="float-right">
+              <a href="{% url 'editar' post.id %}"
+                style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+                role="button" class="btn btn-outline-info" type="image/x-icon"> <img src="{% static 'img/pencil.svg' %}"
+                  style="width:17px;height:17px" alt='' /></a>
+
+              <a href="#" onclick="confirmarEliminacion({{comentario.id}})"
+                style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+                role="button" class="btn btn-outline-danger" type="image/x-icon"> <img
+                  src="{% static 'img/trash.svg' %}" style="width:17px;height:17px" alt='' /></a>
+            </p>
+          </div>
+          {% endif %}
+          {% endif %}
+          <!------------------------------------------------------------------------------------>
+
+          =======
+          <div id="collapse{{comentario.id}}" class="collapse" aria-labelledby="headingOne"
+            data-parent="#accordionExample">
+            <div class="card-body">
+              <p style="margin-top: 15px; margin-bottom: 15px; font-size:15px;padding-left: 50px">
+                {{comentario.contenido}}
+              </p>
+              <br>
+              {{comentario.fecha_publicacion}}
+
+              {% if user.is_authenticated %}
+
+              {% if user.id == post.id_user_id %}
+              <div class="container" style="padding-left: 700px;
+          margin-right: 10px;">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p class="float-right">
+                      <a href="{% url 'edicion' comentario.id%}"
+                        style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+                        role="button" class="btn btn-outline-info" type="image/x-icon"> <img
+                          src="{% static 'img/pencil.svg' %}" style="width:17px;height:17px" alt='' /></a>
+
+                      <a href="#" onclick="eliminarComentario({{comentario.id}}, {{post.id }})"
+                        style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+                        role="button" class="btn btn-outline-danger" type="image/x-icon"> <img
+                          src="{% static 'img/trash.svg' %}" style="width:17px;height:17px" alt='' /></a>
+                    </p>
+                  </div>
+                </div>
+                >>>>>>> version_categorias
+              </div>
+            </div>
             {% endif %}
-            <!------------------------------------------------------------------------------------>
+            {% endif %}
 
           </div>
         </div>
-      </div>
-      {% endfor %}
+        {% endfor %}
     </div>
     {% endif %}
 
@@ -146,4 +176,3 @@
 </div>
 
 {% endblock %}
-

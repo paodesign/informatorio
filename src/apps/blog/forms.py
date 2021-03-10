@@ -31,13 +31,7 @@ class Formulario_Alta_Comentario(forms.ModelForm):
 
 
     }
-          
-        
-
-
-
-
-
+      
 
 
 #class Formulario_Registro_Usuario(UserCreationForm):

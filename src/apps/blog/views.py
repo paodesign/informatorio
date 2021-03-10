@@ -1,23 +1,29 @@
 from django.shortcuts import render, redirect
 from django.views.generic import *
-
 from django.urls import reverse_lazy, reverse
 from .models import *
 from .forms import Formulario_Alta_Post, Formulario_Alta_Comentario
 from django.http import HttpResponse, HttpResponseRedirect
 from ..usuario.models import Usuario
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
 #Creacion de las vistas
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
-
 class Home(ListView):
 	model = Post
 	template_name = 'blog/home.html'
+	def  get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		categoria = Categoria.objects.all()
+		context['categoria'] = categoria
+		return context
 
-
+def vista_categorias(request, categ):
+	existe = Categoria.objects.filter(categoria_nombre=categ)
+	return render(request, 'blog/categorias.html', {'existe':existe})
+	
 #utilice una funcion para definir esta vista porque se necesita utilizar los dos modelos
 
 
@@ -48,7 +54,11 @@ class Editar_post(LoginRequiredMixin ,UpdateView):
 	template_name='blog/altaPost.html'
 	success_url=reverse_lazy('home')
 
-
+class Editar_comentario(LoginRequiredMixin,UpdateView):
+	model = Comentario
+	form_class = Formulario_Alta_Comentario
+	template_name='blog/post.html'
+	success_url=reverse_lazy('home')
 
 # class Eliminar_post(DeleteView):
 # 	model=Post
@@ -62,6 +72,17 @@ def eliminar_post(request, pk):
 	post.delete()
 	return HttpResponseRedirect('/')
 
+def eliminar_comentario(request, coment_id, post_id):
+	comentario = Comentario.objects.get(id=coment_id)
+	comentario.delete()
+	return HttpResponseRedirect("/posts/{}".format(post_id))
+	
+
+# class eliminar_comentario(DeleteView):
+# 	model = Comentario
+# 	form_class = Formulario_Alta_Comentario
+# 	template_name='blog/post.html'
+# 	success_url=reverse_lazy('home')
 	
 class Alta_post(LoginRequiredMixin ,CreateView):
 	model = Post 
