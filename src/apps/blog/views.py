@@ -44,8 +44,10 @@ def vista_categorias(request, categ):
 
 def filt(request):
 	fecha=request.GET['fecha']
+	fecha = datetime.strptime(fecha, '%Y-%m-%d')
 	posts=Post.objects.filter(fecha_publicacion=fecha)
-	return HttpResponse(posts)
+	#return HttpResponse(posts)
+	return render(request,'blog/filtro.html',{'post':posts})
 
 def post(request, pk):
 	post = Post.objects.get(id=pk)

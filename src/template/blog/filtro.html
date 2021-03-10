@@ -1,4 +1,11 @@
-<!-- <form action="/filtro/" method="GET">
-	<input type="date" name="fecha" >
-	<input type="submit" name="Buscar">
-</form> -->
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+	{% for p in post %}
+		{{p.titulo}} <br>
+		{{p.contenido}} <br>
+	{% endfor %}
+
+{% endblock %}
