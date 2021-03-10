@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="{% static 'js/confirmacion.js'%}"></script>
+<!-- Page Header -->
+<header class="masthead" style="background-image: url(/static/img/home-bg.jpg)">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>{{categ}}</h1>
+          <span class="subheading">Blog de Noticias y Actualidad sobre {{categ}} </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+<!-- Main Content -->
+{% if categoria_posts|length > 0 %}
+<div class="container card">
+  <div class="row card-body">
+    <div class="col-lg-8 col-md-10 mx-auto">
+
+      {% for post in categoria_posts %}
+      <div class="post-preview ">
+
+        <h2 class="post-title">
+          <a href="{% url 'posts' post.pk %}">{{post.titulo}}</a>
+
+        </h2>
+        <p class="post-subtitle text-truncate" style="margin-bottom: 0px;">
+          {{post.contenido}}
+        </p>
+        <strong><a href="{% url 'posts' post.pk %}" style="font-size: 15px; ">Ver más</a></strong>
+        </a>
+        <div class="row post-meta">
+          <div class="col-md-8">
+            <p>Postedado por
+              <a href="#" on>Usuario{{post.id}}</a>
+              - {{post.fecha_publicacion}}
+
+            </p>
+          </div>
+          <div class="col-md-4">
+            <p class="float-right">
+              <a href="{% url 'editar' post.id %}"
+                style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+                role="button" class="btn btn-outline-info" type="image/x-icon"> <img src="{% static 'img/pencil.svg' %}"
+                  style="width:17px;height:17px" alt='' /></a>
+
+              <a href="#" onclick="confirmarEliminacion({{post.id}})"
+                style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+                role="button" class="btn btn-outline-danger" type="image/x-icon"> <img
+                  src="{% static 'img/trash.svg' %}" style="width:17px;height:17px" alt='' /></a>
+            </p>
+          </div>
+
+        </div>
+        {% if not forloop.last %}
+        <hr>
+        {% endif %}
+
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if categoria_posts|length is 0 %}
+
+<div class="container card" style="text-align: center">
+  <div class="row">
+    <div class="col-md-10">
+      <p>
+      <h4>Lo sentimos, esta categoria aun no contiene post ...</h4>
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

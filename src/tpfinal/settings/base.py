@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 import os
 from pathlib import Path
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +25,13 @@ SECRET_KEY = 'gl5d!nx!^31j1a7x&i^*aij)ediens@l)+kq6le#xp_&=-gmjp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-###AUTH_USER_HOTS = 'usuarios.Usuario'
+AUTH_USER_MODEL= 'usuario.Usuario'
+
+#Si te logeas vas al home, si te deslogeas vas al home y el template para
+#logearse es login
+LOGIN_REDIRECT_URL = reverse_lazy('home')
+LOGOUT_REDIRECT_URL = reverse_lazy('home')
+LOGIN_URL = reverse_lazy('login')
 
 # Application definition
 
@@ -36,7 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.blog',
+    'apps.usuario',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+# CKEDITOR_UPLOAD_PATH = "uploads"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
