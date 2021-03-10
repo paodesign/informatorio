@@ -5,13 +5,10 @@ from .models import *
 from .forms import Formulario_Alta_Post, Formulario_Alta_Comentario, Filtro_Fecha
 from django.http import HttpResponse, HttpResponseRedirect
 from ..usuario.models import Usuario
-<<<<<<< HEAD
-=======
 from datetime import datetime
 
 #Creacion de las vistas
 
->>>>>>> 58f0b24696bd7ebcf1cb1940c6634bf4cd3d050d
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
