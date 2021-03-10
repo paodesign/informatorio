@@ -1,12 +1,17 @@
 from django.shortcuts import render, redirect
 from django.views.generic import *
+
 from django.urls import reverse_lazy, reverse
 from .models import *
-from .forms import Formulario_Alta_Post
+from .forms import Formulario_Alta_Post, Formulario_Alta_Comentario
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import Formulario_Alta_Comentario
+from ..usuario.models import Usuario
+
 
 #Creacion de las vistas
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 class Home(ListView):
 	model = Post
@@ -15,11 +20,12 @@ class Home(ListView):
 
 #utilice una funcion para definir esta vista porque se necesita utilizar los dos modelos
 
+
 def post(request, pk):
 	post = Post.objects.get(id=pk)
 	comentarios = Comentario.objects.filter(post= post.id)
 	
-	#ESTA PARTE ES DEL FORMULARIO PARA EL COMENTARIO#
+	###ESTA PARTE ES DEL FORMULARIO PARA EL COMENTARIO####
 	if request.method == 'POST':
 		form = Formulario_Alta_Comentario(request.POST)
 		if form.is_valid():
@@ -28,25 +34,20 @@ def post(request, pk):
 			comentario.save()
 
 
-			#return redirect('home') ### Te devuelve a la home despues de comentar, me parece que no sirve por eso lo anulo
+			#return redirect('home') ### Te devuelve a la home despues de comentar, me parece que no sirve 
+			#por eso lo anulo
 	else:
 		form = Formulario_Alta_Comentario()
-	#############################################################	
+	###########  ACA TERMINA LO DEL FORMULARIO PARA EL COMENTARIO     ##########	
 	ctx = {'post':post, 'comentarios': comentarios, 'form' : form}
 	return render(request, 'blog/post.html', ctx)
 
-
-
-
-
-
-
-
-class Editar_post(UpdateView):
+class Editar_post(LoginRequiredMixin ,UpdateView):
 	model = Post
 	form_class = Formulario_Alta_Post
 	template_name='blog/altaPost.html'
 	success_url=reverse_lazy('home')
+
 
 
 # class Eliminar_post(DeleteView):
@@ -55,12 +56,14 @@ class Editar_post(UpdateView):
 # 	template_name='blog/bajaPost.html'
 # 	success_url=reverse_lazy('home')
 
+
 def eliminar_post(request, pk):
 	post = Post.objects.get(id=pk)
 	post.delete()
 	return HttpResponseRedirect('/')
+
 	
-class Alta_post(CreateView):
+class Alta_post(LoginRequiredMixin ,CreateView):
 	model = Post 
 	form_class = Formulario_Alta_Post
 	template_name = 'blog/altaPost.html'
@@ -77,10 +80,6 @@ def vista_categorias(request, categ):
 	#form_class = Formulario_Alta_Comentario
 	#template_name = 'blog/post.html'
 	#success_url = reverse_lazy('home')
-
-
-
-
 
 # No hace falta, se esta usando la clase "Alta_post"
 #def post_nuevo(request):
@@ -103,3 +102,8 @@ def vista_categorias(request, categ):
 	# 		form.save()
 	# 		return redirect('home')
 
+#class Alta_usuario(CreateView):
+#    model = Usuario
+ #   form_class = Formulario_Registro_Usuario
+  #  template_name = 'usuario/altaUsuario.html'
+   # #success_url = reverse_lazy('home')
