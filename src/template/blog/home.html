@@ -24,6 +24,7 @@
 
 <!-- Main Content -->
 <!-- <div style="position: relative;"> -->
+
 <div class="container" style="position: relative;;">
   <div class="row card-body">
     <div class=" card col-lg-8" style="margin-left: 15px;
@@ -95,19 +96,20 @@
                   </li>
                   {% endfor %}
               </div>
-
             </div>
           </div>
-
         </div>
         {% endfor %}
       </div>
-
     </div>
-
     <br>
     </ul>
   </div>
+  Filtrado por fecha
+  <form action="/filtro/" method="GET">
+    <input type="date" name="fecha" >
+    <input type="submit" name="Buscar">
+  </form>
 </div>
 </div>
 <!-- <div class='container text-center '>

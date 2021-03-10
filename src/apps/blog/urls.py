@@ -15,9 +15,14 @@ urlpatterns = [
   path('eliminarcoment/<int:coment_id>/<int:post_id>/', eliminar_comentario, name='eliminar_comentario'),
   #path('crear_usuario/', views.Alta_usuario.as_view(), name='crear_usuario')
   path('categoria/<str:categ>', views.vista_categorias, name = 'categorias'),
+<<<<<<< HEAD
 
  # path('eliminar/<int:pk>/',views.eliminar_post.as_view(), name= 'eliminar'),
   
  
 
+=======
+  # path('filtrar/',views.filtroF),
+  path('filtro/',views.filt),
+>>>>>>> 58f0b24696bd7ebcf1cb1940c6634bf4cd3d050d
 ]
