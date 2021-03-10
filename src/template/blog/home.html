@@ -24,6 +24,7 @@
 
 <!-- Main Content -->
 <!-- <div style="position: relative;"> -->
+
 <div class="container" style="position: relative;;">
   <div class="row card-body">
     <div class=" card col-lg-8" style="margin-left: 15px;
@@ -81,8 +82,7 @@
           <hr>
           <div class="container">
             <div class="row">
-              <div class="col-md-4 col-lg-10" style="position: absolute; top: 0px;
-            left: 140%;">
+              <div class="col-md-4 col-lg-10" style="position: absolute; top: 0px; left: 140%;">
                 <strong><p style="margin-bottom: 5px">Categorias</p></strong>
                 {% for categ in categoria %}
                 <ul class="nav flex-column">
@@ -92,19 +92,19 @@
                   </li>
                   {% endfor %}
               </div>
-
             </div>
           </div>
-
         </div>
         {% endfor %}
       </div>
-
     </div>
-
     <br>
     </ul>
   </div>
+  <form action="/filtro/" method="GET">
+    <input type="date" name="fecha" >
+    <input type="submit" name="Buscar">
+  </form>
 </div>
 </div>
 <!-- <div class='container text-center '>

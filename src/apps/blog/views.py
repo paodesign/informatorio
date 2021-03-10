@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.views.generic import *
 from django.urls import reverse_lazy, reverse
 from .models import *
-from .forms import Formulario_Alta_Post, Formulario_Alta_Comentario
+from .forms import Formulario_Alta_Post, Formulario_Alta_Comentario, Filtro_Fecha
 from django.http import HttpResponse, HttpResponseRedirect
 from ..usuario.models import Usuario
+from datetime import datetime
 
 #Creacion de las vistas
 
@@ -18,14 +19,33 @@ class Home(ListView):
 		context = super().get_context_data(**kwargs)
 		categoria = Categoria.objects.all()
 		context['categoria'] = categoria
+		context['fecha']=Filtro_Fecha
 		return context
 
 def vista_categorias(request, categ):
 	existe = Categoria.objects.filter(categoria_nombre=categ)
 	return render(request, 'blog/categorias.html', {'existe':existe})
 	
+#class Filtro_fecha(ListView):
+#	model = Post
+#	template_name = 'blog/home.html'
+#
+#	def get_context_data(self,**kwargs):
+#		context= super().get_context_data(**kwargs)
+#		context['fecha']=Filtro_Fecha
+#		return context
+#
+#	def get_queryset(self,**kwargs):
+#		fecha=self.kwargs['filtro_fecha']
+#		return Post.objects.filter(fecha_publicacion=fecha)
 #utilice una funcion para definir esta vista porque se necesita utilizar los dos modelos
+# def filtroF(request):
+# 	return render(request,"blog/filtro.html")
 
+def filt(request):
+	fecha=request.GET['fecha']
+	posts=Post.objects.filter(fecha_publicacion=fecha)
+	return HttpResponse(posts)
 
 def post(request, pk):
 	post = Post.objects.get(id=pk)

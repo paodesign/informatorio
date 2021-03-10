@@ -14,5 +14,6 @@ urlpatterns = [
   path('eliminar/<int:pk>/',eliminar_post, name= 'eliminar'),
   #path('crear_usuario/', views.Alta_usuario.as_view(), name='crear_usuario')
   path('categoria/<str:categ>', views.vista_categorias, name = 'categorias'),
- 
+  # path('filtrar/',views.filtroF),
+  path('filtro/',views.filt),
 ]

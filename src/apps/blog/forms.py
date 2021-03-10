@@ -2,6 +2,7 @@ from django import forms
 from .models import Post, Comentario
 from django.contrib.auth.forms import UserCreationForm
 from ..usuario.models import Usuario
+from django.forms.widgets import SelectDateWidget
 # from .forms import Formulario_Post
 
 class Formulario_Alta_Post(forms.ModelForm):
@@ -25,7 +26,8 @@ class Formulario_Alta_Comentario(forms.ModelForm):
 		fields = ['contenido']
 
 
-
+class Filtro_Fecha(forms.Form):
+  fecha=forms.DateField(widget=SelectDateWidget())
 #class Formulario_Registro_Usuario(UserCreationForm):
  #   class Meta:
   #      model = Usuario
