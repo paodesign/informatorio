@@ -21,9 +21,17 @@ class Formulario_Alta_Post(forms.ModelForm):
         }
 
 class Formulario_Alta_Comentario(forms.ModelForm):
-	class Meta:
-		model = Comentario
-		fields = ['contenido']
+  class Meta:
+    model = Comentario
+    fields = ('contenido', 'autor')
+
+    widgets ={ 
+        #'titulo': forms.TextInput(attrs={'class': 'form-control'}),
+       'autor': forms.TextInput(attrs={'class': 'form-control', 'value':'', 'id':'identificador', 'type':'hidden'}),
+      'contenido': forms.Textarea(attrs={'class': 'form-control'}),
+      #'fecha_creacion':forms.
+          #'categoria': forms.Select(attrs={'class': 'form-control'}),
+    }
 
 
 class Filtro_Fecha(forms.Form):

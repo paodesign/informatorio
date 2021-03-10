@@ -43,11 +43,25 @@ def vista_categorias(request, categ):
 # 	return render(request,"blog/filtro.html")
 
 def filt(request):
-	fecha=request.GET['fecha']
-	fecha = datetime.strptime(fecha, '%Y-%m-%d')
-	posts=Post.objects.filter(fecha_publicacion__gte=fecha)
+	desde=request.GET['desde']
+	desde = datetime.strptime(desde, '%Y-%m-%d')
+	hasta=request.GET['hasta']
+	hasta = datetime.strptime(hasta, '%Y-%m-%d')
+	posts=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta)
 	#return HttpResponse(posts)
 	return render(request,'blog/filtro.html',{'post':posts})
+
+
+def filt_categorias(request, categ):
+	existe = Categoria.objects.filter(categoria_nombre=categ)
+	desde=request.GET['desde']
+	desde = datetime.strptime(desde, '%Y-%m-%d')
+	hasta=request.GET['hasta']
+	hasta = datetime.strptime(hasta, '%Y-%m-%d')
+	posts=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta, categoria=categ)
+	#return HttpResponse(posts)
+	return render(request,'blog/filtro.html',{'post':posts})
+
 
 def post(request, pk):
 	post = Post.objects.get(id=pk)
@@ -105,6 +119,18 @@ def vista_categorias(request, categ):
 	existe = Categoria.objects.filter(categoria_nombre=categ)
 	return render(request, 'blog/categorias.html', {'categ':categ.title(), 'categoria_posts':categoria_posts, 'existe':existe})
 
+
+class Editar_comentario(LoginRequiredMixin,UpdateView):
+	model = Comentario
+	form_class = Formulario_Alta_Comentario
+	template_name='blog/post.html'
+	success_url=reverse_lazy('home')
+
+
+def eliminar_comentario(request, coment_id, post_id):
+	comentario = Comentario.objects.get(id=coment_id)
+	comentario.delete()
+	return HttpResponseRedirect("/posts/{}".format(post_id))
 
 
 

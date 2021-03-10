@@ -3,11 +3,11 @@
 
 {% block content %}
 
+      {% if existe %}
+
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{% static 'js/confirmacion.js'%}"></script>
-
-
 <!-- Page Header -->
 <header class="masthead" style="background-image: url(/static/img/home-bg.jpg)">
   <div class="overlay"></div>
@@ -23,12 +23,14 @@
   </div>
 </header>
 
-<!-- Main Content -->
 
+
+<!-- Main Content -->
+{% if categoria_posts|length > 0 %}
 <div class="container card">
-  <div class="row mb-2 card-body">
+  <div class="row card-body">
     <div class="col-lg-8 col-md-10 mx-auto">
- 
+
       {% for post in categoria_posts %}
       <div class="post-preview ">
 
@@ -44,11 +46,16 @@
         <div class="row post-meta">
           <div class="col-md-8">
             <p>Postedado por
-              <a href="#" on>Usuario{{post.id}}</a>
+              <a href="#" on>{{post.id_user}}</a>
               - {{post.fecha_publicacion}}
 
             </p>
           </div>
+
+
+          {% if user.is_authenticated %}
+          {% if user.id == post.id_user_id %}
+
           <div class="col-md-4">
             <p class="float-right">
               <a href="{% url 'editar' post.id %}"
@@ -63,13 +70,54 @@
             </p>
           </div>
 
+          {% endif %}
+          {% endif %}
+
         </div>
+        {% if not forloop.last %}
         <hr>
+        {% endif %}
+
       </div>
       {% endfor %}
-      {% if not existe %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if categoria_posts|length is 0 %}
+
+<div class="container card" style="text-align: center">
+  <div class="row">
+    <div class="col-md-10">
+      <p>
+      <h4>Lo sentimos, esta categoria aun no contiene post ...</h4>
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+{% endif %}
+
+
+
+
+
+      Filtrado por fecha
+  <form action="/categoria/{{categ}}/filtro/" method="GET">
+    <input type="date" name="desde" >
+    <input type="date" name="hasta" >
+    <input type="submit" name="Buscar">
+  </form>
+
+
+
+      {% else %}
         <p>
-            <h5>Lo sentimos, por el momento no hay post en esta categoria...</h5>
+            <h5>Lo sentimos, esto no es una categoria... :(</h5>
         </p>
         {% endif %}
     </div>

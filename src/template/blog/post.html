@@ -65,9 +65,24 @@
             <!-- </div>
         </div>
     </div> -->
-        {% endif %}
+        
 
        </form>
+
+        <script type="text/javascript">
+           
+        var name = "{{user.id}}"
+        document.getElementById("identificador").value
+            = name;
+
+
+       </script>
+
+{% endif %}
+
+
+
+
           </div>
         </div>
       </div>
@@ -84,7 +99,7 @@
           <h2 class="mb-0">
             <button id="" class="btn btn-block text-left " type="button" data-toggle="collapse"
               data-target="#collapse{{comentario.id}}" aria-expanded="true" aria-controls="collapse{{comentario.id}}">
-              Usuario{{comentario.id}}
+              {{comentario.autor}}
             </button>
           </h2>
         </div>
@@ -94,10 +109,54 @@
           <div class="card-body">
             <p style="margin-top: 15px; margin-bottom: 15px; font-size:15px;">{{comentario.contenido}}</p>
             <br>
+
+
+
+
+
+            <!-- ---------------ACA VA LO DE ELIMINAR COMENTARIO---------------- -->
+
+
+            {% if user.is_authenticated %}
+
+          {% if user.id == comentario.autor_id %}
+          <div class="container" style="padding-left: 700px;
+          margin-right: 10px;">
+            <div class="row">
+              <div class="col-md-4">
+                <p class="float-right">
+                  <a href="{% url 'edicion' comentario.id%}"
+                    style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+                    role="button" class="btn btn-outline-info" type="image/x-icon"> <img
+                      src="{% static 'img/pencil.svg' %}" style="width:17px;height:17px" alt='' /></a>
+
+                  <a href="#" onclick="eliminarComentario({{comentario.id}}, {{post.id }})"
+                    style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+                    role="button" class="btn btn-outline-danger" type="image/x-icon"> <img
+                      src="{% static 'img/trash.svg' %}" style="width:17px;height:17px" alt='' /></a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endif %}
+
+
+
+            <!-- ---------------ACA VA LO DE ELIMINAR COMENTARIO---------------- -->
+
             {{comentario.fecha_publicacion}}
           </div>
         </div>
       </div>
+
+
+
+          
+
+
+
       {% endfor %}
     </div>
     {% endif %}
@@ -106,4 +165,3 @@
 </div>
 
 {% endblock %}
-
