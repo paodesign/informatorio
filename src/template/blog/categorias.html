@@ -2,10 +2,6 @@
 {% load static %}
 
 {% block content %}
-
-      {% if existe %}
-
-
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{% static 'js/confirmacion.js'%}"></script>
 <!-- Page Header -->
@@ -102,25 +98,17 @@
 
 {% endif %}
 
+{% if categoria_posts|length > 0 %}
+Filtrado por fecha
+<form action="/categoria/{{categ}}/filtro/" method="GET">
+  <input type="date" name="desde">
+  <input type="date" name="hasta">
+  <input type="submit" name="Buscar">
+</form>
 
-
-
-
-      Filtrado por fecha
-  <form action="/categoria/{{categ}}/filtro/" method="GET">
-    <input type="date" name="desde" >
-    <input type="date" name="hasta" >
-    <input type="submit" name="Buscar">
-  </form>
-
-
-
-      {% else %}
-        <p>
-            <h5>Lo sentimos, esto no es una categoria... :(</h5>
-        </p>
-        {% endif %}
-    </div>
-  </div>
 </div>
+</div>
+</div>
+{% endif %}
+
 {% endblock %}

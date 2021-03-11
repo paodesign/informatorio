@@ -49,7 +49,6 @@
               <p>Postedado por
                 <a href="#" on>{{post.id_user}}</a>
                 - {{post.fecha_publicacion}}
-
               </p>
             </div>
 
@@ -79,11 +78,16 @@
             {% endif %}
 
           </div>
+          {% if not forloop.last %}
           <hr>
+          {% endif %}
           <div class="container">
             <div class="row">
-              <div class="col-md-4 col-lg-10" style="position: absolute; top: 0px; left: 140%;">
-                <strong><p style="margin-bottom: 5px">Categorias</p></strong>
+              <div class="col-md-4 col-lg-10" style="position: absolute; top: 0px;
+            left: 140%;">
+                <strong>
+                  <p style="margin-bottom: 5px">Categorias</p>
+                </strong>
                 {% for categ in categoria %}
                 <ul class="nav flex-column">
                   <li class="nav-item">

@@ -12,6 +12,9 @@ from datetime import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
+
+#Creacion de las vistas
+
 class Home(ListView):
 	model = Post
 	template_name = 'blog/home.html'
@@ -67,7 +70,7 @@ def post(request, pk):
 	post = Post.objects.get(id=pk)
 	comentarios = Comentario.objects.filter(post= post.id)
 	
-	#ESTA PARTE ES DEL FORMULARIO PARA EL COMENTARIO#
+	###ESTA PARTE ES DEL FORMULARIO PARA EL COMENTARIO####
 	if request.method == 'POST':
 		form = Formulario_Alta_Comentario(request.POST)
 		if form.is_valid():
@@ -76,14 +79,13 @@ def post(request, pk):
 			comentario.save()
 
 
-			#return redirect('home') ### Te devuelve a la home despues de comentar, me parece que no sirve por eso lo anulo
+			#return redirect('home') ### Te devuelve a la home despues de comentar, me parece que no sirve 
+			#por eso lo anulo
 	else:
 		form = Formulario_Alta_Comentario()
-	#############################################################	
+	###########  ACA TERMINA LO DEL FORMULARIO PARA EL COMENTARIO     ##########	
 	ctx = {'post':post, 'comentarios': comentarios, 'form' : form}
 	return render(request, 'blog/post.html', ctx)
-
-
 
 class Editar_post(LoginRequiredMixin ,UpdateView):
 	model = Post
@@ -91,6 +93,11 @@ class Editar_post(LoginRequiredMixin ,UpdateView):
 	template_name='blog/altaPost.html'
 	success_url=reverse_lazy('home')
 
+class Editar_comentario(LoginRequiredMixin,UpdateView):
+	model = Comentario
+	form_class = Formulario_Alta_Comentario
+	template_name='blog/post.html'
+	success_url=reverse_lazy('home')
 
 # class Eliminar_post(DeleteView):
 # 	model=Post
@@ -103,15 +110,24 @@ def eliminar_post(request, pk):
 	post = Post.objects.get(id=pk)
 	post.delete()
 	return HttpResponseRedirect('/')
+
+def eliminar_comentario(request, coment_id, post_id):
+	comentario = Comentario.objects.get(id=coment_id)
+	comentario.delete()
+	return HttpResponseRedirect("/posts/{}".format(post_id))
+	
+
+# class eliminar_comentario(DeleteView):
+# 	model = Comentario
+# 	form_class = Formulario_Alta_Comentario
+# 	template_name='blog/post.html'
+# 	success_url=reverse_lazy('home')
 	
 class Alta_post(LoginRequiredMixin ,CreateView):
 	model = Post 
 	form_class = Formulario_Alta_Post
 	template_name = 'blog/altaPost.html'
 	success_url = reverse_lazy('home')
-
-
-
 
 
 def vista_categorias(request, categ):
@@ -126,27 +142,16 @@ class Editar_comentario(LoginRequiredMixin,UpdateView):
 	template_name='blog/post.html'
 	success_url=reverse_lazy('home')
 
-
-
 def eliminar_comentario(request, coment_id, post_id):
 	comentario = Comentario.objects.get(id=coment_id)
 	comentario.delete()
 	return HttpResponseRedirect("/posts/{}".format(post_id))
-
-
 
 #class Alta_comentario(CreateView):
 	#model = Comentario 
 	#form_class = Formulario_Alta_Comentario
 	#template_name = 'blog/post.html'
 	#success_url = reverse_lazy('home')
-
-
-
-
-
-
-
 
 # No hace falta, se esta usando la clase "Alta_post"
 #def post_nuevo(request):
