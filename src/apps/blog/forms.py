@@ -9,7 +9,7 @@ class Formulario_Alta_Post(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('titulo', 'contenido', 'id_user', 'categoria')
+        fields = ('titulo', 'contenido', 'id_user', 'categoria', 'imagen')
 
         widgets = {
         	'titulo': forms.TextInput(attrs={'class': 'form-control'}),
