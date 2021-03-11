@@ -98,6 +98,11 @@ class Editar_post(LoginRequiredMixin ,UpdateView):
 # 	template_name='blog/bajaPost.html'
 # 	success_url=reverse_lazy('home')
 
+def eliminar_comentario(request, coment_id, post_id):
+	comentario = Comentario.objects.get(id=coment_id)
+	comentario.delete()
+	return HttpResponseRedirect("/posts/{}".format(post_id))
+
 
 def eliminar_post(request, pk):
 	post = Post.objects.get(id=pk)
