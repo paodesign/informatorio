@@ -74,7 +74,6 @@ def filt(request):
 
 
 
-
 def filt_categorias(request, categ):
 	existe = Categoria.objects.filter(categoria_nombre=categ)
 	desde=request.GET['desde']
