@@ -17,7 +17,8 @@ urlpatterns = [
   path('categoria/<str:categ>', views.vista_categorias, name = 'categorias'),
   # path('filtrar/',views.filtroF),
   path('eliminarcoment/<int:coment_id>/<int:post_id>/', eliminar_comentario, name='eliminar_comentario'),
-  path('filtro/',views.filt),
+  path('filtrovista/', views.filt),
+  path('filtro/',views.filt, name='filtro'),
   path('categoria/<str:categ>/filtro/', views.filt_categorias),
   path('comentario/<int:pk>/',views.Editar_comentario.as_view(), name='edicion'),
 ]

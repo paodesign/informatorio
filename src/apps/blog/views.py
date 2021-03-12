@@ -6,6 +6,7 @@ from .forms import Formulario_Alta_Post, Formulario_Alta_Comentario, Filtro_Fech
 from django.http import HttpResponse, HttpResponseRedirect
 from ..usuario.models import Usuario
 from datetime import datetime
+from django.core.paginator import Paginator
 
 #Creacion de las vistas
 
@@ -18,6 +19,9 @@ from django.contrib.auth.decorators import login_required
 class Home(ListView):
 	model = Post
 	template_name = 'blog/home.html'
+	ordering = ['-fecha_publicacion']
+	paginate_by = 1
+
 	def  get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		categoria = Categoria.objects.all()
@@ -25,9 +29,17 @@ class Home(ListView):
 		context['fecha']=Filtro_Fecha
 		return context
 
-def vista_categorias(request, categ):
-	existe = Categoria.objects.filter(categoria_nombre=categ)
-	return render(request, 'blog/categorias.html', {'existe':existe})
+#def vista_categorias(request, categ):
+#	existe = Categoria.objects.filter(categoria_nombre=categ)
+#	#page = request.GET.get('page', 1)
+#	categoria_posts = Post.objects.filter(categoria=categ)
+
+
+#	paginator = Paginator(categoria_posts, 1)
+#	page_number = request.GET.get('page')
+#	page_obj = paginator.get_page(page_number)
+	#return render(request, 'list.html', {'page_obj': page_obj})
+#	return render(request, 'blog/categorias.html', {'page_obj': page_obj}, {'existe':existe})
 	
 #class Filtro_fecha(ListView):
 #	model = Post
@@ -50,9 +62,17 @@ def filt(request):
 	desde = datetime.strptime(desde, '%Y-%m-%d')
 	hasta=request.GET['hasta']
 	hasta = datetime.strptime(hasta, '%Y-%m-%d')
-	posts=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta)
-	#return HttpResponse(posts)
-	return render(request,'blog/filtro.html',{'post':posts})
+	posts=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta).order_by('-fecha_publicacion')
+
+
+	paginator = Paginator(posts, 1)
+	page_number = request.GET.get('page')
+	page_obj = paginator.get_page(page_number)
+
+
+	return render(request, 'blog/filtro.html', {'page_obj':page_obj, 'desde':request.GET['desde'], 'hasta':request.GET['hasta']})
+
+
 
 
 def filt_categorias(request, categ):
@@ -61,9 +81,15 @@ def filt_categorias(request, categ):
 	desde = datetime.strptime(desde, '%Y-%m-%d')
 	hasta=request.GET['hasta']
 	hasta = datetime.strptime(hasta, '%Y-%m-%d')
-	posts=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta, categoria=categ)
+	posts=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta, categoria=categ).order_by('-fecha_publicacion')
 	#return HttpResponse(posts)
-	return render(request,'blog/filtro.html',{'post':posts})
+	paginator = Paginator(posts, 1)
+	page_number = request.GET.get('page')
+	page_obj = paginator.get_page(page_number)
+
+	#return render(request, 'list.html', {'page_obj': page_obj})
+
+	return render(request, 'blog/filtro.html', {'page_obj':page_obj, 'desde':request.GET['desde'], 'hasta':request.GET['hasta']})
 
 
 def post(request, pk):
@@ -131,9 +157,16 @@ class Alta_post(LoginRequiredMixin ,CreateView):
 
 
 def vista_categorias(request, categ):
-	categoria_posts = Post.objects.filter(categoria=categ)
+	categoria_posts = Post.objects.filter(categoria=categ).order_by('-fecha_publicacion')
 	existe = Categoria.objects.filter(categoria_nombre=categ)
-	return render(request, 'blog/categorias.html', {'categ':categ.title(), 'categoria_posts':categoria_posts, 'existe':existe})
+
+	paginator = Paginator(categoria_posts, 1)
+	page_number = request.GET.get('page')
+	page_obj = paginator.get_page(page_number)
+
+	#return render(request, 'list.html', {'page_obj': page_obj})
+
+	return render(request, 'blog/categorias.html', {'page_obj':page_obj, 'categ':categ.title(), 'existe':existe})
 
 
 class Editar_comentario(LoginRequiredMixin,UpdateView):

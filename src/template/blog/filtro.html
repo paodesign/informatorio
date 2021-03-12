@@ -28,7 +28,7 @@
 		<div class="card col-lg-8" style="margin-left: 15px; margin-right: 10px;">
 			<div class="col-lg-8 col-md-10 mx-auto" style="margin-left: 15px; margin-right: 10px; padding-top: 15px">
 
-				{% for p in post %}
+				{% for p in page_obj %}
 				<div class="post-preview">
 					<h2 class="post-title">
 						<a href="{% url 'posts' p.pk%}">{{p.titulo}}</a>
@@ -65,7 +65,39 @@
 				</div>
 				{% endfor %}
 
+
+				        <!-- -------------------------------------- ACA VA LO DE PAGINACION--------------------- -->
+
+
+          {% if page_obj.has_previous %}
+
+            <a class="btn btn-outline-info mb-4" href="?desde={{desde}}&hasta={{hasta}}&page=1">First</a>
+            <a class="btn btn-outline-info mb-4" href="?desde={{desde}}&hasta={{hasta}}&page={{page_obj.previous_page_number}} ">Previous</a>
+
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+              {% if page_obj.number == num %}
+                <a class="btn btn-info mb-4" href="&?desde={{desde}}&hasta={{hasta}}page={{num}}">{{num}}</a>
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a class="btn btn-outline-info mb-4" href="?desde={{desde}}&hasta={{hasta}}&page={{num}}">{{num}}</a>
+              {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+              <a class="btn btn-outline-info mb-4" href="?desde={{desde}}&hasta={{hasta}}&page={{page_obj.next_page_number}}">Next</a>
+              <a class="btn btn-outline-info mb-4" href="?desde={{desde}}&hasta={{hasta}}&page={{page_obj.paginator.num_pages}} ">Last</a>
+            {% endif %}
+
+
+
+
+           <!-- -------------------------------------- ACA TERMINA LO DE PAGINACION --------------------- -->
+
+
 			</div>
+
+
 
 
 		</div>
