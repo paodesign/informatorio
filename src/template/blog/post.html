@@ -8,171 +8,168 @@
 <script src="{% static 'js/confirmacion.js'%}"></script>
 
 <!-- Page Header -->
-
-<header class="masthead" style="background-image: url('{{ STATIC_URL }}img/post-bg.jpg')">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="post-heading">
-          <h1>{{post.titulo}}</h1>
-          <h2 class="subheading">{{post.subtitulo}}</h2>
-          <span class="meta">Posteado por
-            <a href="#">{{post.id_user}}</a>
-            {{post.fecha_publicacion}}
-          </span>
+{% if post.imagen %}
+<header class="masthead" style="background-image: url({{post.imagen.url}})">
+  {% else %}
+  <header class="masthead">
+    {% endif %}
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>{{post.titulo}}</h1>
+            <h2 class="subheading">{{post.subtitulo}}</h2>
+            <span class="meta">Posteado por
+              <a href="#"> {{post.id_user}}</a>
+              <br><span style="font-size: 15px">{{post.fecha_publicacion}}</span>
+            </span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<!-- Post Content -->
-<article>
-  <div class="container ">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        {% if post.imagen %}
-      <img src="{{post.imagen.url}}">
-        {% endif %}
+  <!-- Post Content -->
+  <article>
+    <div class="container ">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
 
-    </br></br>
-
-        {{post.contenido}}
+          {{post.contenido}}
+        </div>
       </div>
     </div>
+  </article>
+
+
+  <hr style="width: 60%">
+  <div style="margin-left:15px; margin-bottom: 15px;">
+    <h6>Comentarios </h6>
   </div>
-</article>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container-fluid">
 
+      <div class="accordion">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+              <button id="" class="btn btn-block text-left" type="button" aria-expanded="true">
+                Deja un comentario
+              </button>
+            </h2>
+          </div>
 
-<hr style="width: 60%">
-<div style="margin-left:15px; margin-bottom: 15px;">
-  <h6>Comentarios </h6>
-</div>
-<div class="jumbotron jumbotron-fluid">
-  <div class="container-fluid">
-
-    <div class="accordion">
-      <div class="card">
-        <div class="card-header" id="headingOne">
-          <h2 class="mb-0">
-            <button id="" class="btn btn-block text-left" type="button" aria-expanded="true">
-              Deja un comentario
-            </button>
-          </h2>
-        </div>
-
-        {% if user.is_authenticated %}
-        <!--div class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"-->
-        <div class="card-body">
-          <form method="POST">
-            {% csrf_token %}
-            <!-- <div class="container" style="width: 750px">
+          {% if user.is_authenticated %}
+          <!--div class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"-->
+          <div class="card-body">
+            <form method="POST">
+              {% csrf_token %}
+              <!-- <div class="container" style="width: 750px">
         <div class="row">
             <div class="col-lg-12"> -->
-            {{form|crispy}}
-            <input type="submit" name="guardar" id="" value="Guardar" class="btn btn-outline-info">
-            <!-- </div>
+              {{form|crispy}}
+              <div class="container">
+
+                <input type="submit" name="guardar" id="" value="Guardar" class="btn btn-outline-info float-right"
+                  style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
+              </div>
+              <!-- </div>
         </div>
     </div> -->
 
 
-          </form>
+            </form>
 
-          <script type="text/javascript">
+            <script type="text/javascript">
 
-            var name = "{{user.id}}"
-            document.getElementById("identificador").value
-              = name;
-
-
-          </script>
-
-          {% endif %}
+              var name = "{{user.id}}"
+              document.getElementById("identificador").value
+                = name;
 
 
+            </script>
 
+            {% endif %}
 
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-{% if comentarios %}
-<br>
-<br>
+  {% if comentarios %}
+  <br>
+  <br>
 
-<div class="accordion" id="accordionExample">
-  {% for comentario in comentarios %}
-  <div class="card">
-    <div class="card-header" id="headingOne">
-      <h2 class="mb-0">
-        <button id="" class="btn btn-block text-left " type="button" data-toggle="collapse"
-          data-target="#collapse{{comentario.id}}" aria-expanded="true" aria-controls="collapse{{comentario.id}}">
-          {{comentario.autor}}
-        </button>
-      </h2>
-    </div>
+  <div class="accordion" id="accordionExample">
+    {% for comentario in comentarios %}
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <button id="" class="btn btn-block text-left " type="button" data-toggle="collapse"
+            data-target="#collapse{{comentario.id}}" aria-expanded="true" aria-controls="collapse{{comentario.id}}">
+            {{comentario.autor}} | <span>{{comentario.fecha_creacion}}</span>
+          </button>
+        </h2>
+      </div>
 
-    <div id="collapse{{comentario.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-      <div class="card-body">
-        <p style="margin-top: 15px; margin-bottom: 15px; font-size:15px;">{{comentario.contenido}}</p>
-        <br>
+      <div id="collapse{{comentario.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+          <div style="margin-top: 15px; margin-bottom: 15px; font-size:15px; margin-left: 50px;margin-right: 50px">
+            {{comentario.contenido}}
+          </div>
+         
+          <br>
 
-
-
-
-
-        <!-- ---------------ACA VA LO DE ELIMINAR COMENTARIO---------------- -->
+          <!-- ---------------ACA VA LO DE ELIMINAR COMENTARIO---------------- -->
 
 
-        {% if user.is_authenticated %}
+          {% if user.is_authenticated %}
 
-        {% if user.id == comentario.autor_id %}
-        <div class="container" style="padding-left: 700px;
-          margin-right: 10px;">
-          <div class="row">
-            <div class="col-md-4">
-              <p class="float-right">
-                <a href="{% url 'edicion' comentario.id%}"
-                  style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
-                  role="button" class="btn btn-outline-info" type="image/x-icon"> <img
-                    src="{% static 'img/pencil.svg' %}" style="width:17px;height:17px" alt='' /></a>
+          {% if user.id == comentario.autor_id %}
+          <div class="container float-right col-9">
+            <div class="row ">
+              <div class="container float-right col-lg-6" style="margin-right: 100px">
+                <div class="row ">
+                  <div class="col-md-4">
+                    <p class="float-right">
+                      <a href="{% url 'edicion' comentario.id%}"
+                        style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+                        role="button" class="btn btn-outline-info" type="image/x-icon"> <img
+                          src="{% static 'img/pencil.svg' %}" style="width:17px;height:17px" alt='' /></a>
 
-                <a href="#" onclick="eliminarComentario({{comentario.id}}, {{post.id }})"
-                  style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
-                  role="button" class="btn btn-outline-danger" type="image/x-icon"> <img
-                    src="{% static 'img/trash.svg' %}" style="width:17px;height:17px" alt='' /></a>
-              </p>
+                      <a href="#" onclick="eliminarComentario({{comentario.id}}, {{post.id }})"
+                        style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+                        role="button" class="btn btn-outline-danger" type="image/x-icon"> <img
+                          src="{% static 'img/trash.svg' %}" style="width:17px;height:17px" alt='' /></a>
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+       
+        {% endif %}
+        {% endif %}
       </div>
-      {% endif %}
-      {% endif %}
-
 
 
       <!-- ---------------ACA VA LO DE ELIMINAR COMENTARIO---------------- -->
 
-           <br>
-      <p style="margin-top: 15px; margin-bottom: 15px; font-size:15px;">Publicado: {{comentario.fecha_creacion}}</p>
+      <br>
+
     </div>
   </div>
-</div>
+  </div>
 
 
 
+  {% endfor %}
+  </div>
+  {% endif %}
 
+  </div>
+  </div>
 
-
-
-{% endfor %}
-</div>
-{% endif %}
-
-</div>
-</div>
-
-{% endblock %}
+  {% endblock %}

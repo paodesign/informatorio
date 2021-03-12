@@ -7,6 +7,12 @@
     padding-bottom: 4px;
     background-color: rgba(255, 255, 255, 0.945);
 }
+#id_contenido {
+    height: 94px !important;
+}
+.requiredField {
+    font-size: 15px !important;
+}
 /* .post-subtitle h5{
   
 } */
