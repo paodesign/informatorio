@@ -1,3 +1,4 @@
+  
 from django.urls import path
 from . import views
 from . views import *
@@ -21,4 +22,5 @@ urlpatterns = [
   path('filtro/',views.filt, name='filtro'),
   path('categoria/<str:categ>/filtro/', views.filt_categorias),
   path('comentario/<int:pk>/',views.Editar_comentario.as_view(), name='edicion'),
+  path('eliminarcoment/<int:coment_id>/<int:post_id>/', eliminar_comentario, name='eliminar_comentario'),
 ]

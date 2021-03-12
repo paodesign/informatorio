@@ -12,10 +12,11 @@ class Formulario_Alta_Post(forms.ModelForm):
         fields = ('titulo', 'contenido', 'id_user', 'categoria', 'imagen')
 
         widgets = {
-        	'titulo': forms.TextInput(attrs={'class': 'form-control'}),
-        	'id_user': forms.TextInput(attrs={'class': 'form-control', 'value':'', 'id':'identificador', 'type':'hidden'}),
-        	'contenido': forms.Textarea(attrs={'class': 'form-control'}),
+            'titulo': forms.TextInput(attrs={'class': 'form-control'}),
+            'id_user': forms.TextInput(attrs={'class': 'form-control', 'value':'', 'id':'identificador', 'type':'hidden'}),
+            'contenido': forms.Textarea(attrs={'class': 'form-control'}),
             'categoria': forms.Select(attrs={'class': 'form-control'}),
+
         }
 
 class Formulario_Alta_Comentario(forms.ModelForm):
@@ -37,4 +38,3 @@ class Filtro_Fecha(forms.Form):
     #   class Meta:
     #      model = Usuario
     #     fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2']
-		

@@ -74,6 +74,7 @@ def filt(request):
 
 
 
+
 def filt_categorias(request, categ):
 	existe = Categoria.objects.filter(categoria_nombre=categ)
 	desde=request.GET['desde']
@@ -129,6 +130,11 @@ class Editar_comentario(LoginRequiredMixin,UpdateView):
 # 	form_class = Formulario_Alta_Post
 # 	template_name='blog/bajaPost.html'
 # 	success_url=reverse_lazy('home')
+
+def eliminar_comentario(request, coment_id, post_id):
+	comentario = Comentario.objects.get(id=coment_id)
+	comentario.delete()
+	return HttpResponseRedirect("/posts/{}".format(post_id))
 
 
 def eliminar_post(request, pk):
