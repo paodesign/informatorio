@@ -32,6 +32,12 @@
   <div class="container ">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
+        {% if post.imagen %}
+      <img src="{{post.imagen.url}}">
+        {% endif %}
+
+    </br></br>
+
         {{post.contenido}}
       </div>
     </div>
@@ -150,8 +156,12 @@
 
       <!-- ---------------ACA VA LO DE ELIMINAR COMENTARIO---------------- -->
 
-     <br>
+           <br>
       <p style="margin-top: 15px; margin-bottom: 15px; font-size:15px;">Publicado: {{comentario.fecha_creacion}}</p>
+    </div>
+  </div>
+</div>
+
 
     </div>
   </div>

@@ -9,48 +9,101 @@
 
 <!-- Page Header -->
 <header class="masthead" style="background-image: url(/static/img/home-bg.jpg)">
-  <div class="overlay"> </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="site-heading">
-          <h1>Bienvenidos</h1>
-          <span class="subheading">Blog de Noticias y Actualidad</span>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="overlay"> </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				<div class="site-heading">
+					<h1>Bienvenidos</h1>
+					<span class="subheading">Blog de Noticias y Actualidad</span>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </header>
 
-<div class="container" style="position: relative;">
+<div class="container">
 	<div class="row card-body">
 		<div class="card col-lg-8" style="margin-left: 15px; margin-right: 10px;">
 			<div class="col-lg-8 col-md-10 mx-auto" style="margin-left: 15px; margin-right: 10px; padding-top: 15px">
 
-				{% for p in post %}
-					<div class="post-preview">
-						<h2 class="post-title">
-							<a href="{% url 'posts' p.pk%}">{{p.titulo}}</a>
-						</h2>
-						<p class="post-subtitle text-truncate" style="margin-bottom: 0px;">{{p.contenido}}</p>
-						<strong>
-							<a href="{% url 'posts' p.pk%}" style="font-size: 15px;">Ver mas</a>
-						</strong>
-						<div class="row post-meta">
-							<div class="col-md-8">
-								<p>Posteado por {{p.id_user}}-{{p.fecha_publicacion}}</p>
-							</div>
+				{% for p in page_obj %}
+				<div class="post-preview">
+					<h2 class="post-title">
+						<a href="{% url 'posts' p.pk%}">{{p.titulo}}</a>
+					</h2>
+					<p class="post-subtitle text-truncate" style="margin-bottom: 0px;">{{p.contenido}}</p>
+					<strong>
+						<a href="{% url 'posts' p.pk%}" style="font-size: 15px;">Ver mas</a>
+					</strong>
+					<div class="row post-meta">
+						<div class="col-md-8">
+							<p>Posteado por {{p.id_user}}-{{p.fecha_publicacion}}</p>
 						</div>
-					</div>
-				{% endfor %} 
-				
-			</div>
-			
-		</div>
-		
-	</div>
+						{% if user.is_authenticated %}
+						{% if user.id == p.id_user_id %}
 	
-</div>	
+						<div class="col-md-4">
+							<p class="float-right">
+								<a href="{% url 'editar' p.pk %}"
+									style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+									role="button" class="btn btn-outline-info" type="image/x-icon"> <img
+										src="{% static 'img/pencil.svg' %}" style="width:17px;height:17px" alt='' /></a>
+	
+								<a href="#" onclick="confirmarEliminacion({{p.id}})"
+									style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+									role="button" class="btn btn-outline-danger" type="image/x-icon"> <img
+										src="{% static 'img/trash.svg' %}" style="width:17px;height:17px" alt='' /></a>
+							</p>
+						</div>
+	
+						{% endif %}
+						{% endif %}
+					</div>
+					
+				</div>
+				{% endfor %}
+
+
+				        <!-- -------------------------------------- ACA VA LO DE PAGINACION--------------------- -->
+
+
+          {% if page_obj.has_previous %}
+
+            <a class="btn btn-outline-info mb-4" href="?desde={{desde}}&hasta={{hasta}}&page=1">First</a>
+            <a class="btn btn-outline-info mb-4" href="?desde={{desde}}&hasta={{hasta}}&page={{page_obj.previous_page_number}} ">Previous</a>
+
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+              {% if page_obj.number == num %}
+                <a class="btn btn-info mb-4" href="&?desde={{desde}}&hasta={{hasta}}page={{num}}">{{num}}</a>
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a class="btn btn-outline-info mb-4" href="?desde={{desde}}&hasta={{hasta}}&page={{num}}">{{num}}</a>
+              {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+              <a class="btn btn-outline-info mb-4" href="?desde={{desde}}&hasta={{hasta}}&page={{page_obj.next_page_number}}">Next</a>
+              <a class="btn btn-outline-info mb-4" href="?desde={{desde}}&hasta={{hasta}}&page={{page_obj.paginator.num_pages}} ">Last</a>
+            {% endif %}
+
+
+
+
+           <!-- -------------------------------------- ACA TERMINA LO DE PAGINACION --------------------- -->
+
+
+			</div>
+
+
+
+
+		</div>
+
+	</div>
+
+</div>
 
 {% endblock %}
