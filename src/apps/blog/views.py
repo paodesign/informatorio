@@ -18,6 +18,8 @@ from django.contrib.auth.decorators import login_required
 class Home(ListView):
 	model = Post
 	template_name = 'blog/home.html'
+	ordering = ['-fecha_publicacion']
+	paginate_by = 10
 	def  get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		categoria = Categoria.objects.all()
@@ -127,7 +129,7 @@ class Alta_post(LoginRequiredMixin ,CreateView):
 	model = Post 
 	form_class = Formulario_Alta_Post
 	template_name = 'blog/altaPost.html'
-	success_url = reverse_lazy('home')
+	success_url = '/?page=1'
 
 
 def vista_categorias(request, categ):

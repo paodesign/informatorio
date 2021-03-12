@@ -100,6 +100,74 @@
           </div>
         </div>
         {% endfor %}
+
+
+
+
+        <!--Esta cosa se llama pagination. Esta puesto en la vista de Home que muestre 10 posts, y aca se le indica que cuando muestra los 10 te deje ir a otra pagina
+          para ver el resto. El problema es que cuando yo voy a otra pagina y vuelvo a la original, y quiero crear otro post, ya no se actualiza el home principal.
+          Prueben a crear 11 posts, ir a la segunda pagina, volver y ahi crear un post N12. Fijense que no lo mostrara en el home hasta que decida borrar el numero 11
+
+          
+          
+        {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                  {% if page_obj.previous_page_number == 1 %}
+                    <a href="{% url 'home' %}">Pagina Anterior</a>
+                  {% else %}
+                    <a href="/?page={{ page_obj.previous_page_number }}">Pagina Anterior</a>
+                  {% endif %}
+                {% endif %}
+                <span class="page-current">
+                    Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/?page={{ page_obj.next_page_number }}">Siguiente Pagina</a>
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
+      -->
+
+      <!--Esta es otra forma de lo mismo de arriba-->
+      {% if is_paginated %}
+        <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in paginator.page_range %}
+          {% if page_obj.number == i %}
+            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+          {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+          <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+        </ul>
+      {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
     </div>
     <br>
