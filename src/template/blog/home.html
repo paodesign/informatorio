@@ -1,185 +1,71 @@
-{% extends 'base.html' %}
+{% extends './basePosts.html' %}
 {% load static %}
-
-{% block content %}
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="{% static 'js/confirmacion.js'%}"></script>
+{% load crispy_forms_tags %}
 
 
-<!-- Page Header -->
-<header class="masthead" style="background-image: url(/static/img/home-bg.jpg)">
-  <div class="overlay"> </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="site-heading">
-          <h1>Bienvenidos</h1>
-          <span class="subheading">Blog de Noticias y Actualidad</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</header>
+{% block listado %}
 
 <!-- Main Content -->
-<div class="container">
-  <div class="row card-body">
-    <div class=" card col-md-8">
-      <div class="col-md-8 col-md-10 mx-auto" style="margin-left: 15px;
-        margin-right: 10px;padding-top: 15px">
 
-        {% for post in object_list %}
-        <div class="post-preview">
+<div class="col-md-8 col-md-10 mx-auto post-container" >
 
-          <h2 class="post-title">
-            <a href="{% url 'posts' post.pk %}">{{post.titulo}}</a>
+  {% for post in object_list %}
+  <div class="post-preview post-item ">
 
-          </h2>
-          <p class="post-subtitle text-truncate" style="margin-bottom: 0px;">
-            {{post.contenido}}
-          </p>
-          <strong><a href="{% url 'posts' post.pk %}" style="font-size: 15px; ">Ver más</a></strong>
-          </a>
-          <div class="row post-meta">
-            <div class="col-md-8">
-              <p>Postedado por
-                <a href="#" on>{{post.id_user}}</a>
-                <br> <span style="font-size: 15px">{{post.fecha_publicacion}}</span>
-              </p>
-            </div>
+    <h2 class="post-title">
+      <a href="{% url 'posts' post.pk %}">{{post.titulo}}</a>
+
+    </h2>
+    <p class="post-subtitle text-truncate" style="margin-bottom: 0px;">
+      {{post.contenido}}
+    </p>
+    <strong><a href="{% url 'posts' post.pk %}" style="font-size: 15px; ">Ver más</a></strong>
+    </a>
+    <div class="row post-meta">
+      <div class="col-md-8">
+        <p>Postedado por
+          <a href="#" on>{{post.id_user}}</a>
+          <br> <span style="font-size: 15px">{{post.fecha_publicacion}}</span>
+        </p>
+      </div>
 
 
-            <!--Solo los usuarios registrados pueden ver el boton de borrar y editar
+      <!--Solo los usuarios registrados pueden ver el boton de borrar y editar
             falta implementar la clave foranea del post para "conectarlo" al usuario que lo creo, sin esto, nadie puede editar ni eliminar sus propios posts.
             Supongo que pasara lo mismo con comentarios, si es que se pueden editar o eliminar-->
-            {% if user.is_authenticated %}
+      {% if user.is_authenticated %}
 
-            {% if user.id == post.id_user_id %}
+      {% if user.id == post.id_user_id %}
 
-            <div class="col-md-4">
-              <p class="float-right">
-                <a href="{% url 'editar' post.id %}"
-                  style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
-                  role="button" class="btn btn-outline-info" type="image/x-icon"> <img
-                    src="{% static 'img/pencil.svg' %}" style="width:17px;height:17px" alt='' /></a>
+      <div class="col-md-4">
+        <p class="float-right">
+          <a href="{% url 'editar' post.id %}"
+            style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+            role="button" class="btn btn-outline-info" type="image/x-icon"> <img src="{% static 'img/pencil.svg' %}"
+              style="width:17px;height:17px" alt='' /></a>
 
-                <a href="#" onclick="confirmarEliminacion({{post.id}})"
-                  style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
-                  role="button" class="btn btn-outline-danger" type="image/x-icon"> <img
-                    src="{% static 'img/trash.svg' %}" style="width:17px;height:17px" alt='' /></a>
-              </p>
-            </div>
-
-            {% endif %}
-            {% endif %}
-
-          </div>
-          {% if not forloop.last %}
-          <hr>
-
-          {% endif %}
-
-
-
-        </div>
-        {% endfor %}
-
-
+          <a href="#" onclick="confirmarEliminacion({{post.id}})"
+            style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"
+            role="button" class="btn btn-outline-danger" type="image/x-icon"> <img src="{% static 'img/trash.svg' %}"
+              style="width:17px;height:17px" alt='' /></a>
+        </p>
       </div>
+
+      {% endif %}
+      {% endif %}
+
     </div>
+    {% if not forloop.last %}
+    <hr>
 
-    <div class="col-md-4">
-      <!-- Busqueda por fecha -->
-      <div class="row">
-        <div class="col-md-4 col-lg-10">
-  
-          <strong>
-            <p style="width: 80px;margin-bottom:10px">Archivos</p>
-          </strong>
-          <form action="/filtro/" method="GET">
-            <div class="form-group row">
-              <!-- <label for="example-text-input" class="col-1 col-form-label">Desde </label> -->
-  
-              <div class="col-2">
-                <input type="date" name="desde">
-  
-              </div>
-            </div>
-            <div class="form-group row">
-              <!-- <label for="example-text-input" class="col-1 col-form-label">Hasta</label> -->
-              <div class="col-2">
-                <input type="date" name="hasta">
-              </div>
-            </div>
-            <div class="d-grid gap-2 col-9 mx-auto" style="padding-left: 120px">
-              <button type="submit" name="Buscar" class="btn btn-outline-success btn-sm"
-                style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"> <img
-                  src="{% static 'img/search.svg' %}" style="width:17px;height:17px" alt='' /></button>
-              <!-- <input type="submit" name="Buscar" class="btn btn-outline-success"> -->
-            </div>
-          </form>
-        </div>
-      </div>
+    {% endif %}
 
-      <!-- Categorias -->
-      <div class="row">
-        <div class="col-md-4 col-lg-10">
-          <strong>
-            <p style="margin-bottom: 5px">Categorias</p>
-          </strong>
-          {% for categ in categoria %}
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" style="padding-left: 5px"
-                href="{% url 'categorias' categ.categoria_nombre %}">{{categ.categoria_nombre}}</a>
-            </li>
-          </ul>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
 
-    <br>
+
   </div>
+  {% endfor %}
 
-  <div class="row">
-    <div class="col-12">
-       <!-- -------------------------------------- ACA VA LO DE PAGINACION--------------------- -->
-       {% if is_paginated %}
-
-       {% if page_obj.has_previous %}
-
-       <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-       <a class="btn btn-outline-info mb-4" href="?page={{page_obj.previous_page_number}} ">Previous</a>
-
-       {% endif %}
-
-       {% for num in page_obj.paginator.page_range %}
-
-         {% if page_obj.number == num %}
-         <a class="btn btn-info mb-4" href="?page={{num}}">{{num}}</a>
-         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <a class="btn btn-outline-info mb-4"
-           href="?page={{num}}">{{num}}</a>
-         {% endif %}
-
-       {% endfor %}
-
-       {% if page_obj.has_next %}
-         <a class="btn btn-outline-info mb-4" href="?page={{page_obj.next_page_number}}">Next</a>
-         <a class="btn btn-outline-info mb-4" href="?page={{page_obj.paginator.num_pages}} ">Last</a>
-       {% endif %}
-
-
-     {% endif %}
-     <!-- -------------------------------------- ACA TERMINA LO DE PAGINACION --------------------- -->
-    </div>
-  </div>
 
 </div>
 
-<!-- <div class='container text-center '>
-  <a class="btn btn-outline-info" href="{% url 'alta_post' %}" role="button">Crear Posts</a>
-
-</div> -->
 {% endblock %}

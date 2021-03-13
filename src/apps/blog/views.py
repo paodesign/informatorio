@@ -63,14 +63,14 @@ def filt(request):
 	hasta=request.GET['hasta']
 	hasta = datetime.strptime(hasta, '%Y-%m-%d')
 	posts=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta).order_by('-fecha_publicacion')
-
+	categoria = Categoria.objects.all()
 
 	paginator = Paginator(posts, 4)
 	page_number = request.GET.get('page')
 	page_obj = paginator.get_page(page_number)
 
 
-	return render(request, 'blog/filtro.html', {'page_obj':page_obj, 'desde':request.GET['desde'], 'hasta':request.GET['hasta']})
+	return render(request, 'blog/filtro.html', {'page_obj':page_obj, 'desde':request.GET['desde'], 'hasta':request.GET['hasta'], 'categoria':categoria})
 
 
 
@@ -168,10 +168,12 @@ def vista_categorias(request, categ):
 	paginator = Paginator(categoria_posts, 4)
 	page_number = request.GET.get('page')
 	page_obj = paginator.get_page(page_number)
+	categoria = Categoria.objects.all()
+
 
 	#return render(request, 'list.html', {'page_obj': page_obj})
 
-	return render(request, 'blog/categorias.html', {'page_obj':page_obj, 'categ':categ.title(), 'existe':existe})
+	return render(request, 'blog/categorias.html', {'page_obj':page_obj, 'categ':categ.title(), 'existe':existe,'categoria':categoria})
 
 
 class Editar_comentario(LoginRequiredMixin,UpdateView):

@@ -13,6 +13,20 @@
 .requiredField {
     font-size: 15px !important;
 }
+.post-item {
+    padding-top: 15px;
+}
+.post-container {
+    margin-left: 15px;
+    margin-right: 10px;
+    padding-top: 15px;
+}
+
+.pag > a {
+    font-size: 10px;
+    padding: 7px 20px;
+}
+
 /* .post-subtitle h5{
   
 } */
