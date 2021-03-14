@@ -19,7 +19,7 @@ from django.contrib.auth.decorators import login_required
 class Home(ListView):
 	model = Post
 	template_name = 'blog/home.html'
-	ordering = ['-fecha_publicacion']
+	ordering = ['-id']
 	paginate_by = 4
 
 	def  get_context_data(self, **kwargs):
@@ -62,7 +62,7 @@ def filt(request):
 	desde = datetime.strptime(desde, '%Y-%m-%d')
 	hasta=request.GET['hasta']
 	hasta = datetime.strptime(hasta, '%Y-%m-%d')
-	page_obj=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta).order_by('-fecha_publicacion')
+	page_obj=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta).order_by('-id')
 	categoria = Categoria.objects.all()
 
 	#paginator = Paginator(posts, 4)
@@ -81,7 +81,7 @@ def filt_categorias(request, categ):
 	desde = datetime.strptime(desde, '%Y-%m-%d')
 	hasta=request.GET['hasta']
 	hasta = datetime.strptime(hasta, '%Y-%m-%d')
-	posts=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta, categoria=categ).order_by('-fecha_publicacion')
+	posts=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta, categoria=categ).order_by('-id')
 	
 	#paginator = Paginator(posts, 4)
 	#page_number = request.GET.get('page')
@@ -162,7 +162,7 @@ class Alta_post(LoginRequiredMixin ,CreateView):
 
 
 def vista_categorias(request, categ):
-	page_obj = Post.objects.filter(categoria=categ).order_by('-fecha_publicacion')
+	page_obj = Post.objects.filter(categoria=categ).order_by('-id')
 	existe = Categoria.objects.filter(categoria_nombre=categ)
 
 	categoria = Categoria.objects.all()
