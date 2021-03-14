@@ -106,4 +106,55 @@
 
 </div>
 
+
+           <!-- -------------------------------------- ACA VA LO DE BUSCAR POR FECHA --------------------- -->
+
+
+
+      </div>
+    </div>
+    <br>
+    </ul>
+  </div>
+  <div class="container" style="position: relative;">
+    <div class="row">
+      <div class="col-md-4 col-lg-10" style="position: absolute; top: -580px;
+      left: 70%; width: 380px; padding-left: 40px">
+
+        <strong>
+          <p style="width: 80px;margin-bottom:10px">Archivos</p>
+        </strong>
+        {% if es_categ %}
+        <form action="/categoria/{{categ}}/filtro/" method="GET">
+        {% else %}	
+        <form action="/filtro/" method="GET">
+        {% endif %}
+          <div class="form-group row">
+            <!-- <label for="example-text-input" class="col-1 col-form-label">Desde </label> -->
+
+            <div class="col-2">
+              <input type="date" name="desde">
+
+            </div>
+          </div>
+          <div class="form-group row">
+            <!-- <label for="example-text-input" class="col-1 col-form-label">Hasta</label> -->
+            <div class="col-2">
+              <input type="date" name="hasta">
+            </div>
+          </div>
+          <div class="d-grid gap-2 col-9 mx-auto" style="padding-left: 120px">
+            <button type="submit" name="Buscar" class="btn btn-outline-success btn-sm"
+              style="color:black;padding-bottom: 10px;padding-left: 15px;padding-right: 15px;padding-top: 10px;"> <img
+                src="{% static 'img/search.svg' %}" style="width:17px;height:17px" alt='' /></button>
+            <!-- <input type="submit" name="Buscar" class="btn btn-outline-success"> -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+  <!-- -------------------------------------- ACA TERMINA LO DE LAS FECHAS ------------------------------ -->
+
 {% endblock %}

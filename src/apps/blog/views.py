@@ -20,7 +20,7 @@ class Home(ListView):
 	model = Post
 	template_name = 'blog/home.html'
 	ordering = ['-fecha_publicacion']
-	paginate_by = 1
+	paginate_by = 4
 
 	def  get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
@@ -65,7 +65,7 @@ def filt(request):
 	posts=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta).order_by('-fecha_publicacion')
 
 
-	paginator = Paginator(posts, 1)
+	paginator = Paginator(posts, 4)
 	page_number = request.GET.get('page')
 	page_obj = paginator.get_page(page_number)
 
@@ -83,13 +83,13 @@ def filt_categorias(request, categ):
 	hasta = datetime.strptime(hasta, '%Y-%m-%d')
 	posts=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta, categoria=categ).order_by('-fecha_publicacion')
 	#return HttpResponse(posts)
-	paginator = Paginator(posts, 1)
+	paginator = Paginator(posts, 4)
 	page_number = request.GET.get('page')
 	page_obj = paginator.get_page(page_number)
 
 	#return render(request, 'list.html', {'page_obj': page_obj})
 
-	return render(request, 'blog/filtro.html', {'page_obj':page_obj, 'desde':request.GET['desde'], 'hasta':request.GET['hasta']})
+	return render(request, 'blog/filtro.html', {'page_obj':page_obj, 'desde':request.GET['desde'], 'hasta':request.GET['hasta'], 'es_categ':existe, 'categ':categ.title()})
 
 
 def post(request, pk):
@@ -165,7 +165,7 @@ def vista_categorias(request, categ):
 	categoria_posts = Post.objects.filter(categoria=categ).order_by('-fecha_publicacion')
 	existe = Categoria.objects.filter(categoria_nombre=categ)
 
-	paginator = Paginator(categoria_posts, 1)
+	paginator = Paginator(categoria_posts, 4)
 	page_number = request.GET.get('page')
 	page_obj = paginator.get_page(page_number)
 
