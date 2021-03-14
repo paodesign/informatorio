@@ -62,12 +62,12 @@ def filt(request):
 	desde = datetime.strptime(desde, '%Y-%m-%d')
 	hasta=request.GET['hasta']
 	hasta = datetime.strptime(hasta, '%Y-%m-%d')
-	posts=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta).order_by('-fecha_publicacion')
+	page_obj=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta).order_by('-fecha_publicacion')
 	categoria = Categoria.objects.all()
 
-	paginator = Paginator(posts, 4)
-	page_number = request.GET.get('page')
-	page_obj = paginator.get_page(page_number)
+	#paginator = Paginator(posts, 4)
+	#page_number = request.GET.get('page')
+	#page_obj = paginator.get_page(page_number)
 
 
 	return render(request, 'blog/filtro.html', {'page_obj':page_obj, 'desde':request.GET['desde'], 'hasta':request.GET['hasta'], 'categoria':categoria})
@@ -76,16 +76,16 @@ def filt(request):
 
 
 def filt_categorias(request, categ):
-	existe = Categoria.objects.filter(categoria_nombre=categ)
+	page_obj = Categoria.objects.filter(categoria_nombre=categ)
 	desde=request.GET['desde']
 	desde = datetime.strptime(desde, '%Y-%m-%d')
 	hasta=request.GET['hasta']
 	hasta = datetime.strptime(hasta, '%Y-%m-%d')
 	posts=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta, categoria=categ).order_by('-fecha_publicacion')
-	#return HttpResponse(posts)
-	paginator = Paginator(posts, 4)
-	page_number = request.GET.get('page')
-	page_obj = paginator.get_page(page_number)
+	
+	#paginator = Paginator(posts, 4)
+	#page_number = request.GET.get('page')
+	#page_obj = paginator.get_page(page_number)
 
 	#return render(request, 'list.html', {'page_obj': page_obj})
 
@@ -162,12 +162,9 @@ class Alta_post(LoginRequiredMixin ,CreateView):
 
 
 def vista_categorias(request, categ):
-	categoria_posts = Post.objects.filter(categoria=categ).order_by('-fecha_publicacion')
+	page_obj = Post.objects.filter(categoria=categ).order_by('-fecha_publicacion')
 	existe = Categoria.objects.filter(categoria_nombre=categ)
 
-	paginator = Paginator(categoria_posts, 4)
-	page_number = request.GET.get('page')
-	page_obj = paginator.get_page(page_number)
 	categoria = Categoria.objects.all()
 
 
