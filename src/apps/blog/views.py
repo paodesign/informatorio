@@ -89,7 +89,7 @@ def filt_categorias(request, categ):
 
 	#return render(request, 'list.html', {'page_obj': page_obj})
 
-	return render(request, 'blog/filtro.html', {'page_obj':page_obj, 'desde':request.GET['desde'], 'hasta':request.GET['hasta']})
+	return render(request, 'blog/filtro.html', {'page_obj':page_obj, 'desde':request.GET['desde'], 'hasta':request.GET['hasta'], 'es_categ':existe, 'categ':categ.title()})
 
 
 def post(request, pk):
