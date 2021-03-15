@@ -48,56 +48,8 @@
   <div style="margin-left:15px; margin-bottom: 15px;">
     <h6>Comentarios </h6>
   </div>
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container-fluid">
-
-      <div class="accordion">
-        <div class="card">
-          <div class="card-header" id="headingOne">
-            <h2 class="mb-0">
-              <button id="" class="btn btn-block text-left" type="button" aria-expanded="true">
-                Deja un comentario
-              </button>
-            </h2>
-          </div>
-
-          {% if user.is_authenticated %}
-          <!--div class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"-->
-          <div class="card-body">
-            <form method="POST">
-              {% csrf_token %}
-              <!-- <div class="container" style="width: 750px">
-        <div class="row">
-            <div class="col-lg-12"> -->
-              {{form|crispy}}
-              <div class="container">
-
-                <input type="submit" name="guardar" id="" value="Guardar" class="btn btn-outline-info float-right"
-                  style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
-              </div>
-              <!-- </div>
-        </div>
-    </div> -->
-
-
-            </form>
-
-            <script type="text/javascript">
-
-              var name = "{{user.id}}"
-              document.getElementById("identificador").value
-                = name;
-
-
-            </script>
-
-            {% endif %}
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
+  {% include "./cajaComentario.html" %}
 
   {% if comentarios %}
   <br>
