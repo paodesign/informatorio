@@ -165,14 +165,10 @@ class Alta_post(LoginRequiredMixin ,CreateView):
 def vista_categorias(request, categ):
 	page_obj = Post.objects.filter(categoria=categ).order_by('-id')
 	existe = Categoria.objects.filter(categoria_nombre=categ)
-
 	categoria = Categoria.objects.all()
-
-
 	#return render(request, 'list.html', {'page_obj': page_obj})
 
 	return render(request, 'blog/categorias.html', {'page_obj':page_obj, 'categ':categ.title(), 'existe':existe,'categoria':categoria})
-
 
 
 

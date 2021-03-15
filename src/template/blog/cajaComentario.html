@@ -6,14 +6,19 @@
             <div class="card">
                 <div class="card-header" id="headingOne">
                     <h2 class="mb-0">
+                        {% if user.is_authenticated %}
                         <button id="" class="btn btn-block text-left" type="button" aria-expanded="true">
                             Deja un comentario
                         </button>
+                        {% else%}
+                        <button id="" class="btn btn-block text-left" type="button" aria-expanded="true">
+                        <a href="{% url 'login' %}">Inicia sesión para dejar un comentario</a>
+                        </button>
+                        {% endif %}
                     </h2>
                 </div>
 
                 {% if user.is_authenticated %}
-                <!--div class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"-->
 
                 <form method="POST">
                     <div class=" row card-body">
