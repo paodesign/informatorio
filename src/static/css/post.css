@@ -13,6 +13,9 @@
 .requiredField {
     font-size: 15px !important;
 }
+#form_coment .requiredField{
+    display: none !important;
+}
 .post-item {
     padding-top: 15px;
 }

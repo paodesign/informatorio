@@ -122,19 +122,20 @@ class Editar_post(LoginRequiredMixin ,UpdateView):
 class Editar_comentario(LoginRequiredMixin,UpdateView):
 	model = Comentario
 	form_class = Formulario_Alta_Comentario
-	template_name='blog/post.html'
-	success_url=reverse_lazy('home')
+	template_name='blog/comentario.html'	
+	# success_url='/posts/5'
+
+	def get_success_url(self):
+		# Assuming there is a ForeignKey from Comment to Post in your model
+		post = self.object.post_id
+		return reverse_lazy( 'posts', kwargs={'pk': post})
+
 
 # class Eliminar_post(DeleteView):
 # 	model=Post
 # 	form_class = Formulario_Alta_Post
 # 	template_name='blog/bajaPost.html'
 # 	success_url=reverse_lazy('home')
-
-def eliminar_comentario(request, coment_id, post_id):
-	comentario = Comentario.objects.get(id=coment_id)
-	comentario.delete()
-	return HttpResponseRedirect("/posts/{}".format(post_id))
 
 
 def eliminar_post(request, pk):
@@ -173,16 +174,7 @@ def vista_categorias(request, categ):
 	return render(request, 'blog/categorias.html', {'page_obj':page_obj, 'categ':categ.title(), 'existe':existe,'categoria':categoria})
 
 
-class Editar_comentario(LoginRequiredMixin,UpdateView):
-	model = Comentario
-	form_class = Formulario_Alta_Comentario
-	template_name='blog/post.html'
-	success_url=reverse_lazy('home')
 
-def eliminar_comentario(request, coment_id, post_id):
-	comentario = Comentario.objects.get(id=coment_id)
-	comentario.delete()
-	return HttpResponseRedirect("/posts/{}".format(post_id))
 
 #class Alta_comentario(CreateView):
 	#model = Comentario 
