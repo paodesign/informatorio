@@ -80,11 +80,9 @@ def filt_categorias(request, categ):
 	desde = datetime.strptime(desde, '%Y-%m-%d')
 	hasta=request.GET['hasta']
 	hasta = datetime.strptime(hasta, '%Y-%m-%d')
-	posts=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta, categoria=categ).order_by('-fecha_publicacion')
+	page_obj=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta, categoria=categ).order_by('-fecha_publicacion')
 	#return HttpResponse(posts)
-	paginator = Paginator(posts, 4)
-	page_number = request.GET.get('page')
-	page_obj = paginator.get_page(page_number)
+
 	categoria = Categoria.objects.all()
 
 	#return render(request, 'list.html', {'page_obj': page_obj})
