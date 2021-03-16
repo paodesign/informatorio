@@ -27,30 +27,33 @@
 <br>
 <div class=" jumbotron jumbotron-fluid">
     <div class="container">
-        <!--{% crispy form %}-->
-        <form method="POST" enctype="multipart/form-data"> 
-            {% csrf_token %}
-            <!-- <div class="container" style="width: 750px">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-12">
+                <!--{% crispy form %}-->
+                {% csrf_token %}
+                <!-- <div class="container" style="width: 750px">
         <div class="row">-->
-            {{form|crispy}}
-            <div class="container" > 
-            <button type="submit" class="btn btn-outline-info"> Guardar</button>
-            <!-- <input type="submit" name="guardar" id="" value="Guardar" class="btn btn-outline-info"  onclick="confirmarEliminacion({{post.id}})" > -->
-           </div>
-         <!-- </div>
+                {{form|crispy}}
+            </div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-outline-info"> Guardar</button>
+                    <!-- <input type="submit" name="guardar" id="" value="Guardar" class="btn btn-outline-info"  onclick="confirmarEliminacion({{post.id}})" > -->
+                </div>
+                <!-- </div>
     </div> -->
 
+            </div>
+        </form>
 
-       </form>
+        <script type="text/javascript">
 
-       <script type="text/javascript">
-           
-        var name = "{{user.id}}"
-        document.getElementById("identificador").value
-            = name;
+            var name = "{{user.id}}"
+            document.getElementById("identificador").value
+                = name;
 
 
-       </script>
+        </script>
 
 
 

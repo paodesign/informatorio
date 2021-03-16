@@ -3,14 +3,13 @@
 {% load crispy_forms_tags %}
 
 <!-- Page Header -->
-{% block titulo %} {{categ}}{% endblock %}
-{% block subtitulo %} Blog de Noticias y Actualidad sobre {{categ}} {% endblock %}
+{% block titulo %} {{nombre}}{% endblock %}
+{% block subtitulo %} Posts publicados por este usuario{% endblock %}
 
 {% block listado %}
 
 <!-- Main Content -->
 {% if existe %}
-{% if page_obj|length > 0 %}
 
     <div class="col-lg-8 col-md-10 mx-auto post-container">
 
@@ -65,24 +64,10 @@
       {% endfor %}
     </div>
 
-{% endif %}
-
-
-{% if page_obj|length is 0 %}
-
-      <p style="text-align: center"> 
-      <h4>Lo sentimos, esta categoria aun no contiene post ...</h4>
-      </p>
-
-
-{% endif %}
-
-
 {% else %}
  <p style="text-align: center"> 
-      <h4>Lo sentimos, esta categoria no existe...</h4>
+      <h4>Error, no existe este usuario...</h4>
       </p>
-
 {% endif %}
 
 {% endblock %}

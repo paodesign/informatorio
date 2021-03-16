@@ -19,7 +19,7 @@ from django.contrib.auth.decorators import login_required
 class Home(ListView):
 	model = Post
 	template_name = 'blog/home.html'
-	ordering = ['-fecha_publicacion']
+	ordering = ['-id']
 	paginate_by = 4
 
 	def  get_context_data(self, **kwargs):
@@ -62,16 +62,15 @@ def filt(request):
 	desde = datetime.strptime(desde, '%Y-%m-%d')
 	hasta=request.GET['hasta']
 	hasta = datetime.strptime(hasta, '%Y-%m-%d')
-	posts=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta).order_by('-fecha_publicacion')
+	page_obj=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta).order_by('-id')
+	categoria = Categoria.objects.all()
+
+	#paginator = Paginator(posts, 4)
+	#page_number = request.GET.get('page')
+	#page_obj = paginator.get_page(page_number)
 
 
-	paginator = Paginator(posts, 4)
-	page_number = request.GET.get('page')
-	page_obj = paginator.get_page(page_number)
-
-
-	return render(request, 'blog/filtro.html', {'page_obj':page_obj, 'desde':request.GET['desde'], 'hasta':request.GET['hasta']})
-
+	return render(request, 'blog/filtro.html', {'page_obj':page_obj, 'desde':request.GET['desde'], 'hasta':request.GET['hasta'], 'categoria':categoria})
 
 
 
@@ -86,10 +85,12 @@ def filt_categorias(request, categ):
 	paginator = Paginator(posts, 4)
 	page_number = request.GET.get('page')
 	page_obj = paginator.get_page(page_number)
+	categoria = Categoria.objects.all()
 
 	#return render(request, 'list.html', {'page_obj': page_obj})
 
-	return render(request, 'blog/filtro.html', {'page_obj':page_obj, 'desde':request.GET['desde'], 'hasta':request.GET['hasta'], 'es_categ':existe, 'categ':categ.title()})
+
+	return render(request, 'blog/filtro.html', {'page_obj':page_obj, 'desde':request.GET['desde'], 'hasta':request.GET['hasta'], 'es_categ':existe, 'categoria':categoria, 'categ':categ.title()})
 
 
 def post(request, pk):
@@ -122,19 +123,20 @@ class Editar_post(LoginRequiredMixin ,UpdateView):
 class Editar_comentario(LoginRequiredMixin,UpdateView):
 	model = Comentario
 	form_class = Formulario_Alta_Comentario
-	template_name='blog/post.html'
-	success_url=reverse_lazy('home')
+	template_name='blog/comentario.html'	
+	# success_url='/posts/5'
+
+	def get_success_url(self):
+		# Assuming there is a ForeignKey from Comment to Post in your model
+		post = self.object.post_id
+		return reverse_lazy( 'posts', kwargs={'pk': post})
+
 
 # class Eliminar_post(DeleteView):
 # 	model=Post
 # 	form_class = Formulario_Alta_Post
 # 	template_name='blog/bajaPost.html'
 # 	success_url=reverse_lazy('home')
-
-def eliminar_comentario(request, coment_id, post_id):
-	comentario = Comentario.objects.get(id=coment_id)
-	comentario.delete()
-	return HttpResponseRedirect("/posts/{}".format(post_id))
 
 
 def eliminar_post(request, pk):
@@ -162,28 +164,28 @@ class Alta_post(LoginRequiredMixin ,CreateView):
 
 
 def vista_categorias(request, categ):
-	categoria_posts = Post.objects.filter(categoria=categ).order_by('-fecha_publicacion')
+	page_obj = Post.objects.filter(categoria=categ).order_by('-id')
 	existe = Categoria.objects.filter(categoria_nombre=categ)
-
-	paginator = Paginator(categoria_posts, 4)
-	page_number = request.GET.get('page')
-	page_obj = paginator.get_page(page_number)
-
+	categoria = Categoria.objects.all()
+	es_categ = True
 	#return render(request, 'list.html', {'page_obj': page_obj})
 
-	return render(request, 'blog/categorias.html', {'page_obj':page_obj, 'categ':categ.title(), 'existe':existe})
+	return render(request, 'blog/categorias.html', {'page_obj':page_obj, 'es_categ':es_categ, 'categ':categ.title(), 'existe':existe,'categoria':categoria})
 
+def filtrar_usuario(request,usuario):
+	nombre = 'Error!'
+	page_obj = None
 
-class Editar_comentario(LoginRequiredMixin,UpdateView):
-	model = Comentario
-	form_class = Formulario_Alta_Comentario
-	template_name='blog/post.html'
-	success_url=reverse_lazy('home')
+	existe = Usuario.objects.filter(username=usuario)
 
-def eliminar_comentario(request, coment_id, post_id):
-	comentario = Comentario.objects.get(id=coment_id)
-	comentario.delete()
-	return HttpResponseRedirect("/posts/{}".format(post_id))
+	if(existe):
+		user = Usuario.objects.get(username=usuario)
+		page_obj = Post.objects.filter(id_user=user.id)
+		nombre = user.username.upper()
+
+	categoria = Categoria.objects.all()
+	return render(request,'blog/usuarios.html', {'page_obj':page_obj,'categoria':categoria, 'existe':existe, 'nombre':nombre})
+
 
 #class Alta_comentario(CreateView):
 	#model = Comentario 
