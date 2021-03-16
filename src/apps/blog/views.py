@@ -170,6 +170,19 @@ def vista_categorias(request, categ):
 
 	return render(request, 'blog/categorias.html', {'page_obj':page_obj, 'categ':categ.title(), 'existe':existe,'categoria':categoria})
 
+def filtrar_usuario(request,usuario):
+	nombre = 'Error!'
+	page_obj = None
+
+	existe = Usuario.objects.filter(username=usuario)
+
+	if(existe):
+		user = Usuario.objects.get(username=usuario)
+		page_obj = Post.objects.filter(id_user=user.id)
+		nombre = user.username.upper()
+
+	categoria = Categoria.objects.all()
+	return render(request,'blog/usuarios.html', {'page_obj':page_obj,'categoria':categoria, 'existe':existe, 'nombre':nombre})
 
 
 #class Alta_comentario(CreateView):

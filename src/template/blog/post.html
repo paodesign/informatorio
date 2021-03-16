@@ -21,7 +21,7 @@
             <h1>{{post.titulo}}</h1>
             <h2 class="subheading">{{post.subtitulo}}</h2>
             <span class="meta">Posteado por
-              <a href="#"> {{post.id_user}}</a>
+              <a href="{% url 'usuarios' post.id_user %}"> {{post.id_user}}</a>
               <br><span style="font-size: 15px">{{post.fecha_publicacion}}</span>
             </span>
           </div>

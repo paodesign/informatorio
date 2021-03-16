@@ -20,5 +20,6 @@ urlpatterns = [
   path('filtrovista/', views.filt),
   path('filtro/',views.filt, name='filtro'),
   path('categoria/<str:categ>/filtro/', views.filt_categorias),
+  path('usuarios/<str:usuario>/', views.filtrar_usuario, name = 'usuarios'),
  
 ]

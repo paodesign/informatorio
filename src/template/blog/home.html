@@ -24,7 +24,7 @@
     <div class="row post-meta">
       <div class="col-md-8">
         <p>Postedado por
-          <a href="#" on>{{post.id_user}}</a>
+          <a href="{% url 'usuarios' post.id_user %}"  on>{{post.id_user}}</a>
           <br> <span style="font-size: 15px">{{post.fecha_publicacion}}</span>
         </p>
       </div>
