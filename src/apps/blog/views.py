@@ -80,7 +80,7 @@ def filt_categorias(request, categ):
 	desde = datetime.strptime(desde, '%Y-%m-%d')
 	hasta=request.GET['hasta']
 	hasta = datetime.strptime(hasta, '%Y-%m-%d')
-	page_obj=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta, categoria=categ).order_by('-fecha_publicacion')
+	page_obj=Post.objects.filter(fecha_publicacion__gte=desde, fecha_publicacion__lte=hasta, categoria=categ).order_by('-id')
 	#return HttpResponse(posts)
 
 	categoria = Categoria.objects.all()
