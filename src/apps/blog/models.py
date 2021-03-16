@@ -17,10 +17,10 @@ class Post(models.Model):
     id_user = models.ForeignKey('usuario.Usuario',on_delete=models.CASCADE)
     titulo = models.CharField(max_length=100)
     contenido = models.TextField()
-    fecha_publicacion = models.DateTimeField(auto_now_add=True)
+    fecha_publicacion = models.DateField(auto_now_add=True)
     #hora = models.TimeField(blank = True,null=True)
     categoria = models.ForeignKey('Categoria', to_field='categoria_nombre', on_delete = models.SET_NULL, null=True)
-    imagen = models.ImageField(upload_to = 'post', blank = True)
+    imagen = models.ImageField(upload_to = 'post', null=True, blank = True)
     
     def publish(self):
         self.published_date = timezone.now()

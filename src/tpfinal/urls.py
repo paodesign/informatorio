@@ -18,6 +18,8 @@ from django.urls import path, include
 from tpfinal import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib.auth import views as auth
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('apps.blog.urls')),
@@ -31,6 +33,8 @@ urlpatterns = [
     path('login/',auth.LoginView.as_view(template_name="usuario/login.html"), name='login'),
     path('logout/',auth.LogoutView.as_view(), name="logout"),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()
 
