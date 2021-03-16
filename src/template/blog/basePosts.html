@@ -39,7 +39,11 @@
           <strong>
             <p style="width: 80px;margin-bottom:10px">Fechas</p>
           </strong>
+          {% if es_categ %}
+          <form action="/categoria/{{categ}}/filtro/" method="GET">
+          {% else %}
           <form action="/filtro/" method="GET">
+          {% endif %}
             <div class="form-group row">
               <!-- <label for="example-text-input" class="col-1 col-form-label">Desde </label> -->
 
